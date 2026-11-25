@@ -1,0 +1,184 @@
+{
+  "by_dominant_source_signed": {
+    "n_tested": 159,
+    "groups_tested": [
+      "Coal",
+      "Gas",
+      "Hydro",
+      "Nuclear",
+      "Oil"
+    ],
+    "groups_too_small": [
+      "Other renewables",
+      "Wind"
+    ],
+    "kruskal_h": 99.66814431567548,
+    "kruskal_p": 1.157423649872502e-20,
+    "by_group": [
+      {
+        "group": "Wind",
+        "n": 3,
+        "median": -266.2871020000007,
+        "mean": -190.22274800000005
+      },
+      {
+        "group": "Hydro",
+        "n": 47,
+        "median": -205.35540599999973,
+        "mean": -202.72608391489354
+      },
+      {
+        "group": "Nuclear",
+        "n": 8,
+        "median": -158.70724300000006,
+        "mean": -159.17765674999984
+      },
+      {
+        "group": "Other renewables",
+        "n": 3,
+        "median": -136.95435199999935,
+        "mean": -179.8742733333328
+      },
+      {
+        "group": "Gas",
+        "n": 42,
+        "median": 58.93194000000014,
+        "mean": 46.85645380952381
+      },
+      {
+        "group": "Oil",
+        "n": 37,
+        "median": 150.9330399999999,
+        "mean": 165.631210594595
+      },
+      {
+        "group": "Coal",
+        "n": 25,
+        "median": 185.4589480000011,
+        "mean": 178.99286448000004
+      }
+    ]
+  },
+  "by_dominant_source_abs": {
+    "n_tested": 159,
+    "groups_tested": [
+      "Coal",
+      "Gas",
+      "Hydro",
+      "Nuclear",
+      "Oil"
+    ],
+    "groups_too_small": [
+      "Other renewables",
+      "Wind"
+    ],
+    "kruskal_h": 27.00120337978632,
+    "kruskal_p": 1.986777380900127e-05,
+    "by_group": [
+      {
+        "group": "Gas",
+        "n": 42,
+        "median": 88.65995599999934,
+        "mean": 93.65253685714275
+      },
+      {
+        "group": "Other renewables",
+        "n": 3,
+        "median": 136.95435199999935,
+        "mean": 179.8742733333328
+      },
+      {
+        "group": "Oil",
+        "n": 37,
+        "median": 150.9330399999999,
+        "mean": 176.55456670270303
+      },
+      {
+        "group": "Nuclear",
+        "n": 8,
+        "median": 158.70724300000006,
+        "mean": 159.17765674999984
+      },
+      {
+        "group": "Coal",
+        "n": 25,
+        "median": 185.4589480000011,
+        "mean": 188.70490816
+      },
+      {
+        "group": "Hydro",
+        "n": 47,
+        "median": 205.35540599999973,
+        "mean": 213.56461285106374
+      },
+      {
+        "group": "Wind",
+        "n": 3,
+        "median": 266.2871020000007,
+        "mean": 190.22274800000005
+      }
+    ]
+  },
+  "by_gdp_quartile_abs": {
+    "n_tested": 165,
+    "groups_tested": [
+      "Q1 (poorest)",
+      "Q2",
+      "Q3",
+      "Q4 (richest)"
+    ],
+    "groups_too_small": [],
+    "kruskal_h": 3.0845151909506967,
+    "kruskal_p": 0.3787772637889916,
+    "by_group": [
+      {
+        "group": "Q2",
+        "n": 41,
+        "median": 126.27816800000039,
+        "mean": 150.92764092682938
+      },
+      {
+        "group": "Q3",
+        "n": 41,
+        "median": 132.84673199999912,
+        "mean": 156.87655629268278
+      },
+      {
+        "group": "Q4 (richest)",
+        "n": 41,
+        "median": 149.3558339999994,
+        "mean": 170.883556390244
+      },
+      {
+        "group": "Q1 (poorest)",
+        "n": 42,
+        "median": 184.40727999999928,
+        "mean": 189.96665342857136
+      }
+    ]
+  },
+  "by_small_state_abs": {
+    "n_tested": 165,
+    "groups_tested": [
+      "other",
+      "small state"
+    ],
+    "groups_too_small": [],
+    "kruskal_h": 0.22740786048564132,
+    "kruskal_p": 0.6334525576062079,
+    "by_group": [
+      {
+        "group": "small state",
+        "n": 11,
+        "median": 122.70408800000075,
+        "mean": 147.38640545454544
+      },
+      {
+        "group": "other",
+        "n": 154,
+        "median": 145.72111100000058,
+        "mean": 168.7243304025974
+      }
+    ]
+  }
+}

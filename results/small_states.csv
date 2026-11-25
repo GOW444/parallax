@@ -1,0 +1,46 @@
+country,iso_code,population,in_iter2_set
+Falkland Islands,FLK,3674.0,False
+Montserrat,MSR,4381.0,False
+Saint Pierre and Miquelon,SPM,5969.0,False
+Nauru,NRU,11949.0,False
+Cook Islands,COK,17276.0,False
+British Virgin Islands,VGB,30359.0,False
+Turks and Caicos Islands,TCA,41516.0,False
+Saint Kitts and Nevis,KNA,47787.0,False
+American Samoa,ASM,48445.0,False
+Faroe Islands,FRO,50978.0,False
+Greenland,GRL,55954.0,False
+Cayman Islands,CYM,64904.0,False
+Dominica,DMA,70840.0,True
+Antigua and Barbuda,ATG,91644.0,False
+United States Virgin Islands,VIR,101377.0,False
+Seychelles,SYC,103120.0,True
+Tonga,TON,105167.0,False
+Saint Vincent and the Grenadines,VCT,105297.0,False
+Aruba,ABW,105980.0,False
+Grenada,GRD,121853.0,False
+Kiribati,KIR,122276.0,False
+Guam,GUM,168696.0,False
+Saint Lucia,LCA,177894.0,True
+Samoa,WSM,209715.0,False
+Sao Tome and Principe,STP,211358.0,True
+Barbados,BRB,279702.0,True
+New Caledonia,NCL,284887.0,False
+Vanuatu,VUT,297307.0,False
+French Polynesia,PYF,297615.0,False
+Iceland,ISL,352951.0,True
+Belize,BLZ,382076.0,False
+Bahamas,BHS,401911.0,False
+Brunei,BRN,434283.0,False
+Maldives,MDV,489773.0,False
+Malta,MLT,491590.0,True
+Cape Verde,CPV,571209.0,True
+Suriname,SUR,593729.0,False
+Luxembourg,LUX,607920.0,True
+Montenegro,MNE,631459.0,False
+Macao,MAC,650996.0,False
+Solomon Islands,SLB,659259.0,False
+Bhutan,BTN,762104.0,False
+Comoros,COM,776322.0,True
+Guyana,GUY,785518.0,False
+Fiji,FJI,919002.0,False

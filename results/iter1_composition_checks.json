@@ -1,0 +1,11 @@
+{
+  "n_rows": 205,
+  "n_parts": 8,
+  "row_sum_min": 99.997,
+  "row_sum_max": 100.004,
+  "smallest_eigenvalue": 5.972285580370633e-08,
+  "largest_eigenvalue": 1840.992952083556,
+  "rank": 7,
+  "share_negative_correlations": 0.6428571428571429,
+  "mean_pairwise_correlation": -0.08611480733711738
+}

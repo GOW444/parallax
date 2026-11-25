@@ -1,0 +1,57 @@
+{
+  "unit_before": "a country in one year (2018 snapshot)",
+  "unit_after": "a country's path, 2000-2018 (one row per country)",
+  "rows_before": 205,
+  "panel_rows": 4490,
+  "rows_after": 162,
+  "years_before": "2018",
+  "years_after_models": "2000-2018",
+  "years_after_descriptive": "2000-2021",
+  "feature_cols_before": 16,
+  "feature_cols_after": 26,
+  "multi_year_cols": [
+    "income_tier",
+    "gdp_pc_2000_02",
+    "cagr_gdp_pc",
+    "cagr_energy_pc",
+    "decoupling",
+    "lowcarbon_2000",
+    "d_lowcarbon",
+    "d_coal",
+    "d_solarwind",
+    "d_carbon_int",
+    "lowcarbon_slope",
+    "log_oil_prod_pc_mean_00_16",
+    "log_gas_prod_pc_mean_00_16",
+    "log_coal_prod_pc_mean_00_16"
+  ],
+  "transformed_2018_cols": [
+    "small_state",
+    "log_energy_pc_2018",
+    "log_energy_per_gdp_2018",
+    "clr_coal",
+    "clr_gas",
+    "clr_oil",
+    "clr_nuclear",
+    "clr_hydro",
+    "clr_solar",
+    "clr_wind",
+    "clr_other_renewables"
+  ],
+  "copied_2018_cols": [
+    "population_2018"
+  ],
+  "max_abs_skew_before": 4.832,
+  "max_abs_skew_after": 0.753,
+  "mix_before": "8 shares in % (each row sums to 100)",
+  "mix_after": "8 CLR log-ratios (each row sums to 0)",
+  "income_before": "none",
+  "income_after": "4 tiers from 2000-02 GDP quartiles",
+  "time_before": "none (one year)",
+  "time_after": "growth (CAGR), decoupling, 16-year changes, yearly slope",
+  "changes": {
+    "unit_of_analysis": true,
+    "scale": true,
+    "geometry_of_mix": true
+  }
+}

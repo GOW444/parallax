@@ -1,0 +1,21 @@
+[project]
+name = "das732-a3"
+version = "1.0.0"
+description = "DAS732 A3: visual analytics workflow on the OWID World Energy Consumption dataset"
+requires-python = ">=3.13"
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-include = ["*.ipynb"]
+
+[tool.ruff.lint]
+# E/W: style, F: real bugs (unused/undefined names), I: import order,
+# B: likely bugs, UP: modern syntax
+select = ["E", "W", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+# NaN/inf arithmetic (division by zero, sqrt of a negative) must fail the tests, not warn
+filterwarnings = ["error::RuntimeWarning"]

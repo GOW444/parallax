@@ -1,0 +1,6 @@
+column,n,skew_raw,skew_log1p
+energy_per_capita,205,2.414,-0.562
+per_capita_electricity,205,4.832,-0.753
+gdp_pc,165,2.381,-0.378
+energy_per_gdp,165,2.215,0.719
+ghg_pc,205,1.778,0.689

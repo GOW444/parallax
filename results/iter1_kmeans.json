@@ -1,0 +1,19 @@
+{
+  "rule": "highest silhouette among the k whose every cluster has >= 5 countries (ties -> smaller k)",
+  "k": 8,
+  "n": 205,
+  "silhouette": 0.3556202354623895,
+  "silhouette_band": "weak",
+  "k_with_max_silhouette_is_range_edge": true,
+  "sizes": {
+    "high Oil share": 56,
+    "high Hydro share": 50,
+    "high Gas share": 30,
+    "high Coal share": 25,
+    "high Nuclear share": 17,
+    "high Energy per person": 10,
+    "high Wind share": 9,
+    "high Solar share": 8
+  },
+  "ari_vs_dominant_source": 0.6630053022940458
+}

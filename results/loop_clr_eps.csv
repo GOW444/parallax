@@ -1,0 +1,5 @@
+space,eps,k_chosen,silhouette_at_k_chosen,min_cluster_size,k_ref,silhouette_at_k_ref,ari_vs_default_eps
+"CLR, eps = 0.01",0.01,8,0.292,11,8,0.292,0.671
+"CLR, eps = 0.1",0.1,8,0.273,13,8,0.273,1.0
+"CLR, eps = 1",1.0,8,0.277,13,8,0.277,0.678
+"raw shares, z-scored (iteration 1 style)",,8,0.416,6,8,0.416,

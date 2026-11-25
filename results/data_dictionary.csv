@@ -1,0 +1,38 @@
+column,description,unit,origin
+country,Country or territory name,-,raw OWID
+iso_code,ISO 3166-1 alpha-3 code,-,raw OWID
+year,Calendar year,year,raw OWID
+population,Population,people,raw OWID
+gdp,"Gross domestic product (PPP, ends 2018)",international-$,raw OWID
+greenhouse_gas_emissions,Greenhouse-gas emissions from electricity generation,MtCO2e,raw OWID
+energy_per_capita,Primary energy consumption per person,kWh per person,raw OWID
+per_capita_electricity,Electricity generation per person,kWh per person,raw OWID
+carbon_intensity_elec,Carbon intensity of electricity,gCO2 per kWh,raw OWID
+energy_per_gdp,Primary energy per unit of GDP (ends 2018),kWh per international-$,raw OWID
+coal_share_elec,Share of electricity from coal,% of generation,"raw OWID, closed in Phase 1"
+gas_share_elec,Share of electricity from gas,% of generation,"raw OWID, closed in Phase 1"
+oil_share_elec,Share of electricity from oil,% of generation,"raw OWID, closed in Phase 1"
+nuclear_share_elec,Share of electricity from nuclear,% of generation,"raw OWID, closed in Phase 1"
+hydro_share_elec,Share of electricity from hydro,% of generation,"raw OWID, closed in Phase 1"
+solar_share_elec,Share of electricity from solar,% of generation,"raw OWID, closed in Phase 1"
+wind_share_elec,Share of electricity from wind,% of generation,"raw OWID, closed in Phase 1"
+other_renewables_share_elec,Share of electricity from other renewables,% of generation,"raw OWID, closed in Phase 1"
+low_carbon_share_elec,Share of electricity from nuclear + renewables (recomputed from closed shares),% of generation,"raw OWID, closed in Phase 1"
+electricity_generation,Total electricity generation,TWh,raw OWID
+low_carbon_electricity,Electricity generated from low-carbon sources,TWh,raw OWID
+coal_electricity,Electricity generated from coal,TWh,raw OWID
+gas_electricity,Electricity generated from gas,TWh,raw OWID
+oil_electricity,Electricity generated from oil,TWh,raw OWID
+nuclear_electricity,Electricity generated from nuclear,TWh,raw OWID
+hydro_electricity,Electricity generated from hydro,TWh,raw OWID
+solar_electricity,Electricity generated from solar,TWh,raw OWID
+wind_electricity,Electricity generated from wind,TWh,raw OWID
+other_renewable_electricity,Electricity generated from other renewables,TWh,raw OWID
+gdp_pc,GDP per person = gdp / population,international-$ per person,derived
+ghg_pc,Electricity-sector emissions per person = greenhouse_gas_emissions x 1e6 / population,tCO2e per person,derived
+oil_prod_pc_2016,"Oil production per person, 2016 value",kWh per person,derived (pre-2017 data only)
+oil_prod_pc_mean_00_16,"Oil production per person, 2000-2016 mean",kWh per person,derived (pre-2017 data only)
+gas_prod_pc_2016,"Gas production per person, 2016 value",kWh per person,derived (pre-2017 data only)
+gas_prod_pc_mean_00_16,"Gas production per person, 2000-2016 mean",kWh per person,derived (pre-2017 data only)
+coal_prod_pc_2016,"Coal production per person, 2016 value",kWh per person,derived (pre-2017 data only)
+coal_prod_pc_mean_00_16,"Coal production per person, 2000-2016 mean",kWh per person,derived (pre-2017 data only)

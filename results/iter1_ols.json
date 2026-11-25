@@ -1,0 +1,14 @@
+{
+  "n": 165,
+  "y": "energy_per_capita",
+  "x": "gdp_pc",
+  "cov_type": "nonrobust",
+  "intercept": -874.576739329907,
+  "slope": 1.4830884442959686,
+  "slope_ci95_low": 1.3394240339655368,
+  "slope_ci95_high": 1.6267528546264005,
+  "slope_p": 1.0705410625123395e-46,
+  "r_squared": 0.7182525600368772,
+  "breusch_pagan_lm": 10.788488655287185,
+  "breusch_pagan_p": 0.001021332355907244
+}

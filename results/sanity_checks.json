@@ -1,0 +1,11 @@
+{
+  "rows": 4490,
+  "countries": 205,
+  "duplicate_country_years": 0,
+  "negative_cells": 0,
+  "complete_mix_rows": 4489,
+  "mix_sum_min": 99.71300000000002,
+  "mix_sum_max": 100.412,
+  "mix_rows_outside_tolerance": 0,
+  "low_carbon_max_gap_pp": 0.0
+}

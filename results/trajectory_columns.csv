@@ -1,0 +1,29 @@
+column,definition,uses_2019_21_in_descriptive_table,allowed_as_model_feature
+country,Country name (OWID),False,False
+iso_code,ISO 3166-1 alpha-3 code,False,False
+population_2018,Population in 2018 (people),False,True
+small_state,"True if population_2018 < 1 M (flag only, never used to drop rows)",False,True
+income_tier,"Quartile of mean GDP per person 2000-02 (data-derived, not World Bank)",False,True
+gdp_pc_2000_02,"Mean GDP per person 2000-02 (international-$, PPP)",False,True
+cagr_gdp_pc,"Yearly growth of GDP per person, 2000-02 mean -> 2016-18 mean (16 years)",False,True
+cagr_energy_pc,"Yearly growth of energy per person, same endpoints",False,True
+decoupling,cagr_gdp_pc - cagr_energy_pc (> 0: GDP grew faster than energy use),False,True
+lowcarbon_2000,Mean low-carbon share of electricity 2000-02 (%),False,False
+d_lowcarbon,Change in low-carbon share from 2000-02 to the end window (pp),True,False
+d_coal,"Change in coal share, same endpoints (pp)",True,False
+d_solarwind,"Change in solar + wind share, same endpoints (pp)",True,False
+d_carbon_int,"Change in grid carbon intensity, same endpoints (gCO2/kWh)",True,False
+lowcarbon_slope,OLS slope of the low-carbon share on year (pp per year),True,False
+log_energy_pc_2018,"log(1 + primary energy per person in 2018, kWh)",False,True
+log_energy_per_gdp_2018,"log(1 + energy per GDP in 2018, kWh per international-$)",False,True
+log_oil_prod_pc_mean_00_16,"log(1 + mean oil production per person 2000-16, kWh)",False,True
+log_gas_prod_pc_mean_00_16,"log(1 + mean gas production per person 2000-16, kWh)",False,True
+log_coal_prod_pc_mean_00_16,"log(1 + mean coal production per person 2000-16, kWh)",False,True
+clr_coal,CLR of the 2018 coal share (log-ratio),False,False
+clr_gas,CLR of the 2018 gas share (log-ratio),False,False
+clr_oil,CLR of the 2018 oil share (log-ratio),False,False
+clr_nuclear,CLR of the 2018 nuclear share (log-ratio),False,False
+clr_hydro,CLR of the 2018 hydro share (log-ratio),False,False
+clr_solar,CLR of the 2018 solar share (log-ratio),False,False
+clr_wind,CLR of the 2018 wind share (log-ratio),False,False
+clr_other_renewables,CLR of the 2018 other renewables share (log-ratio),False,False

@@ -1,0 +1,7 @@
+stage,rows,countries,years
+Raw file,22012,306,1900-2022
+Countries only (ISO code),16512,219,1900-2022
+Window 2000-2021 + core columns,4798,219,2000-2021
+After coverage rule (clean panel),4490,205,2000-2021
+Balanced panel (world totals),4422,201,2000-2021
+Snapshot 2018,205,205,2018

@@ -1,0 +1,21 @@
+{
+  "series": "global low-carbon share of electricity (%), balanced panel",
+  "years": "2000-2021",
+  "n": 22,
+  "s": 33,
+  "tau": 0.14285714285714285,
+  "z": 0.9023337530876832,
+  "p": 0.3668796006462123,
+  "z_hamed_rao": 0.5594731213702943,
+  "p_hamed_rao": 0.575838870180021,
+  "variance_factor": 2.601213221806442,
+  "variance_factor_raw": 2.601213221806442,
+  "sen_slope": 0.09387877804033451,
+  "trend": "no significant trend",
+  "post_hoc_note": "Descriptive only: the series reaches its minimum in 2007. A test on 2007-2021 uses a breakpoint chosen after seeing the data, so its p-value is optimistic and is not used as evidence on its own.",
+  "post_hoc_from_minimum": {
+    "start_year": 2007,
+    "sen_slope": 0.4901238547533617,
+    "p_hamed_rao": 0.009475436574458262
+  }
+}

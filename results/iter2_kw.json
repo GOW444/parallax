@@ -1,0 +1,38 @@
+{
+  "n_tested": 162,
+  "groups_tested": [
+    "High",
+    "Low",
+    "Lower-middle",
+    "Upper-middle"
+  ],
+  "groups_too_small": [],
+  "kruskal_h": 21.504389246346534,
+  "kruskal_p": 8.270460518799308e-05,
+  "by_group": [
+    {
+      "group": "Low",
+      "n": 41,
+      "median": -0.0013836989927181742,
+      "mean": 9.372020796874424e-05
+    },
+    {
+      "group": "Lower-middle",
+      "n": 40,
+      "median": 0.017109851855799663,
+      "mean": 0.01918144120387577
+    },
+    {
+      "group": "High",
+      "n": 41,
+      "median": 0.018449959864476617,
+      "mean": 0.020481069580048875
+    },
+    {
+      "group": "Upper-middle",
+      "n": 40,
+      "median": 0.02068079870089201,
+      "mean": 0.020019176265690677
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "n_countries": 201,
+  "threshold_pp": 10.0,
+  "median_change_pp": 0.629,
+  "iqr_change_pp": [
+    -2.618000000000009,
+    8.044666666666668
+  ],
+  "n_changed_over_threshold": 69,
+  "share_changed_over_threshold": 0.34328358208955223,
+  "n_rose_over_threshold": 42,
+  "n_fell_over_threshold": 27,
+  "median_abs_rank_change": 15.0,
+  "largest_rises": [
+    {
+      "country": "Sierra Leone",
+      "base": 11.2,
+      "end": 74.5,
+      "change": 63.3
+    },
+    {
+      "country": "Denmark",
+      "base": 16.1,
+      "end": 66.3,
+      "change": 50.2
+    },
+    {
+      "country": "Falkland Islands",
+      "base": 0.0,
+      "end": 50.0,
+      "change": 50.0
+    },
+    {
+      "country": "Cambodia",
+      "base": 7.0,
+      "end": 53.3,
+      "change": 46.3
+    }
+  ],
+  "largest_falls": [
+    {
+      "country": "Congo",
+      "base": 100.0,
+      "end": 41.2,
+      "change": -58.8
+    },
+    {
+      "country": "Rwanda",
+      "base": 100.0,
+      "end": 45.6,
+      "change": -54.4
+    },
+    {
+      "country": "Tanzania",
+      "base": 95.5,
+      "end": 43.0,
+      "change": -52.5
+    },
+    {
+      "country": "Ghana",
+      "base": 82.4,
+      "end": 45.1,
+      "change": -37.3
+    }
+  ],
+  "rank_spearman_rho": 0.9070145179351888
+}
