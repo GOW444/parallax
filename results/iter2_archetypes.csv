@@ -1,0 +1,163 @@
+country,iso_code,income_tier,small_state,archetype,assigned_post_hoc
+Afghanistan,AFG,Low,False,2,False
+Albania,ALB,Lower-middle,False,2,False
+Algeria,DZA,Upper-middle,False,1,False
+Angola,AGO,Low,False,1,False
+Argentina,ARG,Upper-middle,False,1,False
+Armenia,ARM,Lower-middle,False,1,False
+Australia,AUS,High,False,4,False
+Austria,AUT,High,False,2,False
+Azerbaijan,AZE,Lower-middle,False,1,False
+Bahrain,BHR,High,False,1,False
+Bangladesh,BGD,Low,False,1,False
+Belarus,BLR,Upper-middle,False,1,False
+Belgium,BEL,High,False,4,False
+Benin,BEN,Low,False,3,False
+Bolivia,BOL,Lower-middle,False,5,False
+Bosnia and Herzegovina,BIH,Lower-middle,False,2,False
+Botswana,BWA,Upper-middle,False,1,False
+Brazil,BRA,Upper-middle,False,2,False
+Bulgaria,BGR,Upper-middle,False,1,False
+Burkina Faso,BFA,Low,False,5,False
+Burundi,BDI,Low,False,5,False
+Cambodia,KHM,Low,False,3,False
+Cameroon,CMR,Low,False,5,False
+Canada,CAN,High,False,2,False
+Central African Republic,CAF,Low,False,2,False
+Chad,TCD,Low,False,3,False
+Chile,CHL,Upper-middle,False,2,False
+China,CHN,Lower-middle,False,4,False
+Colombia,COL,Upper-middle,False,2,False
+Congo,COG,Lower-middle,False,5,False
+Costa Rica,CRI,Upper-middle,False,2,False
+Cote d'Ivoire,CIV,Lower-middle,False,1,False
+Croatia,HRV,Upper-middle,False,2,False
+Cuba,CUB,Lower-middle,False,3,False
+Cyprus,CYP,High,False,3,False
+Czechia,CZE,High,False,4,False
+Democratic Republic of Congo,COD,Low,False,2,False
+Denmark,DNK,High,False,4,False
+Djibouti,DJI,Low,False,3,False
+Dominican Republic,DOM,Lower-middle,False,1,False
+Ecuador,ECU,Upper-middle,False,2,False
+Egypt,EGY,Lower-middle,False,1,False
+El Salvador,SLV,Lower-middle,False,3,False
+Equatorial Guinea,GNQ,Upper-middle,False,3,False
+Estonia,EST,High,False,3,False
+Eswatini,SWZ,Lower-middle,False,2,False
+Ethiopia,ETH,Low,False,2,False
+Finland,FIN,High,False,4,False
+France,FRA,High,False,2,False
+Gabon,GAB,Upper-middle,False,5,False
+Gambia,GMB,Low,False,3,False
+Georgia,GEO,Lower-middle,False,2,False
+Germany,DEU,High,False,4,False
+Ghana,GHA,Low,False,5,False
+Greece,GRC,High,False,4,False
+Guatemala,GTM,Lower-middle,False,2,False
+Guinea,GIN,Low,False,3,False
+Guinea-Bissau,GNB,Low,False,3,False
+Haiti,HTI,Low,False,5,False
+Honduras,HND,Lower-middle,False,2,False
+Hong Kong,HKG,High,False,1,False
+Hungary,HUN,Upper-middle,False,4,False
+India,IND,Lower-middle,False,1,False
+Indonesia,IDN,Lower-middle,False,1,False
+Iran,IRN,Upper-middle,False,1,False
+Iraq,IRQ,Lower-middle,False,1,False
+Ireland,IRL,High,False,4,False
+Israel,ISR,High,False,4,False
+Italy,ITA,High,False,4,False
+Jamaica,JAM,Lower-middle,False,3,False
+Japan,JPN,High,False,1,False
+Jordan,JOR,Upper-middle,False,3,False
+Kazakhstan,KAZ,Upper-middle,False,1,False
+Kenya,KEN,Low,False,2,False
+Kuwait,KWT,High,False,1,False
+Kyrgyzstan,KGZ,Lower-middle,False,2,False
+Laos,LAO,Lower-middle,False,5,False
+Latvia,LVA,Upper-middle,False,2,False
+Lebanon,LBN,Upper-middle,False,1,False
+Lesotho,LSO,Low,False,2,False
+Liberia,LBR,Low,False,3,False
+Libya,LBY,Upper-middle,False,1,False
+Lithuania,LTU,Upper-middle,False,2,False
+Madagascar,MDG,Low,False,5,False
+Malawi,MWI,Low,False,2,False
+Malaysia,MYS,Upper-middle,False,1,False
+Mali,MLI,Low,False,5,False
+Mauritania,MRT,Low,False,3,False
+Mauritius,MUS,Upper-middle,False,3,False
+Mexico,MEX,Upper-middle,False,1,False
+Moldova,MDA,Lower-middle,False,1,False
+Mongolia,MNG,Lower-middle,False,4,False
+Morocco,MAR,Lower-middle,False,4,False
+Mozambique,MOZ,Low,False,5,False
+Myanmar,MMR,Low,False,1,False
+Namibia,NAM,Lower-middle,False,2,False
+Nepal,NPL,Low,False,2,False
+Netherlands,NLD,High,False,4,False
+New Zealand,NZL,High,False,2,False
+Nicaragua,NIC,Lower-middle,False,3,False
+Niger,NER,Low,False,3,False
+Nigeria,NGA,Lower-middle,False,1,False
+North Korea,PRK,Low,False,4,False
+North Macedonia,MKD,Upper-middle,False,4,False
+Norway,NOR,High,False,2,False
+Oman,OMN,High,False,1,False
+Pakistan,PAK,Lower-middle,False,1,False
+Panama,PAN,Upper-middle,False,2,False
+Paraguay,PRY,Lower-middle,False,2,False
+Peru,PER,Lower-middle,False,5,False
+Philippines,PHL,Lower-middle,False,1,False
+Poland,POL,Upper-middle,False,4,False
+Portugal,PRT,High,False,4,False
+Puerto Rico,PRI,High,False,3,False
+Qatar,QAT,High,False,1,False
+Romania,ROU,Upper-middle,False,4,False
+Russia,RUS,Upper-middle,False,1,False
+Rwanda,RWA,Low,False,5,False
+Saudi Arabia,SAU,High,False,1,False
+Senegal,SEN,Low,False,3,False
+Sierra Leone,SLE,Low,False,3,False
+Singapore,SGP,High,False,1,False
+Slovakia,SVK,Upper-middle,False,1,False
+Slovenia,SVN,High,False,2,False
+South Africa,ZAF,Upper-middle,False,4,False
+South Korea,KOR,High,False,1,False
+Spain,ESP,High,False,4,False
+Sri Lanka,LKA,Lower-middle,False,2,False
+Sweden,SWE,High,False,2,False
+Switzerland,CHE,High,False,2,False
+Syria,SYR,Upper-middle,False,3,False
+Taiwan,TWN,High,False,1,False
+Tajikistan,TJK,Low,False,2,False
+Tanzania,TZA,Low,False,5,False
+Thailand,THA,Upper-middle,False,1,False
+Togo,TGO,Low,False,5,False
+Trinidad and Tobago,TTO,High,False,1,False
+Tunisia,TUN,Upper-middle,False,1,False
+Turkey,TUR,Upper-middle,False,2,False
+Turkmenistan,TKM,Lower-middle,False,1,False
+Uganda,UGA,Low,False,2,False
+Ukraine,UKR,Lower-middle,False,1,False
+United Arab Emirates,ARE,High,False,1,False
+United Kingdom,GBR,High,False,4,False
+United States,USA,High,False,4,False
+Uruguay,URY,Upper-middle,False,2,False
+Uzbekistan,UZB,Lower-middle,False,1,False
+Venezuela,VEN,Upper-middle,False,2,False
+Vietnam,VNM,Lower-middle,False,5,False
+Yemen,YEM,Lower-middle,False,3,False
+Zambia,ZMB,Low,False,2,False
+Zimbabwe,ZWE,Low,False,2,False
+Barbados,BRB,Upper-middle,True,3,True
+Cape Verde,CPV,Lower-middle,True,3,True
+Comoros,COM,Low,True,3,True
+Dominica,DMA,Lower-middle,True,5,True
+Iceland,ISL,High,True,2,True
+Luxembourg,LUX,High,True,4,True
+Malta,MLT,High,True,3,True
+Saint Lucia,LCA,Upper-middle,True,3,True
+Sao Tome and Principe,STP,Low,True,5,True
+Seychelles,SYC,Upper-middle,True,3,True

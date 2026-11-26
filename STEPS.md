@@ -307,18 +307,18 @@ wins any conflict.
 - [x] **110. REVIEW #11**
 
 ## Chunk 12 · Phase 4b: archetype clustering (steps 111–120) · Nov 24
-- [ ] **111.** Archetype matrix: descriptive trajectory features + CLR, standardised, without
+- [x] **111.** Archetype matrix: descriptive trajectory features + CLR, standardised, without
   small states. The feature list lives in config. Log n.
-- [ ] **112.** K-means for k = 3..7: silhouette + inertia → `results/iter2_kmeans_k.csv`.
-- [ ] **113.** GMM (diagonal covariance) for k = 3..7: BIC + silhouette → `results/iter2_gmm_k.csv`.
-- [ ] **114.** Figure `iter2_k_selection.png`.
-- [ ] **115.** Choose method and k by a documented rule (silhouette, BIC, every cluster ≥ 5
+- [x] **112.** K-means for k = 3..7: silhouette + inertia → `results/iter2_kmeans_k.csv`.
+- [x] **113.** GMM (diagonal covariance) for k = 3..7: BIC + silhouette → `results/iter2_gmm_k.csv`.
+- [x] **114.** Figure `iter2_k_selection.png`.
+- [x] **115.** Choose method and k by a documented rule (silhouette, BIC, every cluster ≥ 5
   countries, interpretability). Fit and save the labels.
-- [ ] **116.** Assign small states to the nearest centroid using the same scaler. Flag them
+- [x] **116.** Assign small states to the nearest centroid using the same scaler. Flag them
   `assigned_post_hoc`.
-- [ ] **117.** Stability: ARI across 20 seeds → `results/iter2_stability.json`.
-- [ ] **118.** Figure `iter2_vs_iter1_silhouette.png`, using the same country set.
-- [ ] **119.** Standardised centroid profiles → `results/iter2_centroids.csv`.
+- [x] **117.** Stability: ARI across 20 seeds → `results/iter2_stability.json`.
+- [x] **118.** Figure `iter2_vs_iter1_silhouette.png`, using the same country set.
+- [x] **119.** Standardised centroid profiles → `results/iter2_centroids.csv`.
 - [ ] **120. REVIEW #12**
 
 ## Chunk 13 · Phase 4c: archetype interpretation (steps 121–130) · Nov 25

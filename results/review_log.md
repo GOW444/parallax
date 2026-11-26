@@ -837,3 +837,17 @@ prefers otherwise.
 **Deviations needing approval:** none.
 
 **Open questions:** carried from Review #9 (iteration 1 vs 2 silhouette comparison).
+
+
+## Chunk 12 (steps 111-119), Nov 26: archetype clustering (REVIEW #12 not yet signed off)
+
+- Added `src/archetypes.py`, `src/archetype_figures.py`, config constants and 8 notebook cells.
+- 152 countries (162 minus 10 small states, assigned post hoc to the nearest centroid).
+- K-means k = 5 chosen by the documented rule; GMM never beat it.
+- Honest findings: silhouette 0.14 ("no substantial structure"), lower than the iteration 1
+  space (0.33 at k = 8, 0.28 at k = 5), so archetypes are a partition of a continuum, not
+  natural groups. Seed stability is better: ARI mean 0.82 (min 0.74).
+- Archetype low-carbon paths differ: A3/A4 rise, A5 falls, A1/A2 flat (Mann-Kendall in
+  `iter2_mk_archetypes.csv`).
+- Not done: I2-3/I2-4 text, producer test (step 127), GMM BIC is noisy (n_init = 5).
+- Caveat: silhouettes in different feature spaces are not strictly comparable.

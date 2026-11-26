@@ -1,0 +1,9 @@
+{
+  "k": 5,
+  "n_seeds": 20,
+  "ari_mean": 0.8184194819653692,
+  "ari_min": 0.740527814230862,
+  "ari_max": 0.9098772886603063,
+  "silhouette": 0.1438487115752581,
+  "silhouette_reading": "no substantial"
+}

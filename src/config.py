@@ -411,3 +411,42 @@ CLUSTER_FALLBACK_COLORS = ["#000000", "#882255", "#44AA99", "#999933"]
 
 SEQUENTIAL_CMAP = "cividis"
 DIVERGING_CMAP = "RdBu_r"
+
+# --------------------------------------------------------------------------------------
+# Iteration 2: archetype clustering (Chunk 12-13)
+# --------------------------------------------------------------------------------------
+# Trajectory features that describe HOW a country's grid and economy moved (growth,
+# decoupling, change in the mix) plus the CLR-transformed 2018 mix. Producer history and
+# log levels are left out so the archetypes describe change, not size.
+ARCHETYPE_TRAJECTORY_COLS = [
+    "cagr_gdp_pc",
+    "cagr_energy_pc",
+    "decoupling",
+    "lowcarbon_2000",
+    "d_lowcarbon",
+    "d_coal",
+    "d_solarwind",
+    "d_carbon_int",
+    "lowcarbon_slope",
+]
+ARCHETYPE_CLR_COLS = [f"clr_{s}" for s in ["coal", "gas", "oil", "nuclear", "hydro", "solar",
+                                           "wind", "other_renewables"]]
+ARCHETYPE_COLS = ARCHETYPE_TRAJECTORY_COLS + ARCHETYPE_CLR_COLS
+ARCHETYPE_METHOD_RULE = (
+    "highest silhouette among the k (and methods) whose every cluster has >= "
+    f"{MIN_CLUSTER_SIZE} countries; GMM is used only if its BIC-best k also meets the size rule "
+    "and its silhouette beats K-means (ties -> K-means, smaller k)"
+)
+ARCHETYPE_LABELS = {
+    "cagr_gdp_pc": "GDP growth",
+    "cagr_energy_pc": "energy growth",
+    "decoupling": "decoupling",
+    "lowcarbon_2000": "start low-carbon share",
+    "d_lowcarbon": "gain in low-carbon share",
+    "d_coal": "coal change",
+    "d_solarwind": "solar+wind gain",
+    "d_carbon_int": "carbon-intensity change",
+    "lowcarbon_slope": "slope of low-carbon share",
+    **{f"clr_{s}": f"{s.replace('_', ' ')} (CLR)" for s in
+       ["coal", "gas", "oil", "nuclear", "hydro", "solar", "wind", "other_renewables"]},
+}

@@ -1,0 +1,6 @@
+archetype,name,n_core,n_with_small_states
+1,high gas (CLR) + low start low-carbon share,45,45
+2,high start low-carbon share + high hydro (CLR),42,43
+3,high oil (CLR) + low start low-carbon share,24,30
+4,low coal change + low carbon-intensity change,24,25
+5,low gain in low-carbon share + low slope of low-carbon share,17,19
