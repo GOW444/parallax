@@ -1,0 +1,21 @@
+group,method,mae,mape,error_2020
+P1: Gas grids,naive,1.202,10.831,1.143
+P1: Gas grids,holt,1.138,10.26,1.079
+P1: Gas grids,holt_damped,1.191,10.735,1.132
+P1: Gas grids,arima_110,1.276,11.507,1.219
+P2: Hydro grids,naive,1.294,1.446,-1.738
+P2: Hydro grids,holt,1.097,1.226,-1.541
+P2: Hydro grids,holt_damped,1.474,1.646,-1.923
+P2: Hydro grids,arima_110,1.206,1.348,-1.687
+P3: Coal grids,naive,5.701,10.37,8.32
+P3: Coal grids,holt,3.269,5.91,5.889
+P3: Coal grids,holt_damped,3.662,6.632,6.263
+P3: Coal grids,arima_110,3.447,6.235,5.93
+P4: Oil grids,naive,2.978,18.298,3.518
+P4: Oil grids,holt,2.658,16.463,3.198
+P4: Oil grids,holt_damped,2.726,16.88,3.265
+P4: Oil grids,arima_110,3.317,20.433,3.841
+P5: Hydro grids,naive,1.156,2.749,-1.819
+P5: Hydro grids,holt,5.004,11.798,3.784
+P5: Hydro grids,holt_damped,1.072,2.515,-0.384
+P5: Hydro grids,arima_110,1.206,2.878,-2.009

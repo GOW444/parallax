@@ -2,13 +2,13 @@
   "n": 162,
   "n_folds": 5,
   "n_dropped_from_iter1": 3,
-  "v1_r2_mean": 0.024651322572154587,
-  "v2_r2_mean": 0.030990136298816463,
+  "v1_r2_mean": 0.024651322572154633,
+  "v2_r2_mean": 0.030990136298816397,
   "v1_mae_mean": 166.1610425081745,
-  "v2_mae_mean": 169.55124526515146,
+  "v2_mae_mean": 169.55124526515144,
   "baseline_mae_mean": 178.47233255135689,
   "folds_v2_better_mae": 2,
-  "mean_d_mae": 3.3902027569769926,
-  "sd_d_mae": 9.477616190582003,
+  "mean_d_mae": 3.3902027569769873,
+  "sd_d_mae": 9.477616190582005,
   "note": "5 paired folds are too few for a reliable significance test; differences are descriptive."
 }

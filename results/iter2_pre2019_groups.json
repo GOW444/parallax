@@ -1,0 +1,11 @@
+{
+  "k": 5,
+  "ari_vs_descriptive_archetypes": 0.7867464179856001,
+  "sizes": {
+    "P1: Gas grids": 43,
+    "P2: Hydro grids": 36,
+    "P3: Coal grids": 32,
+    "P4: Oil grids": 34,
+    "P5: Hydro grids": 17
+  }
+}

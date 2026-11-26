@@ -31,9 +31,19 @@ of each country's mean GDP per person over 2000–02.
   - a review-log entry.
 - After each review, stop and agree before starting the next chunk.
 
-**Progress:** steps 1–110 are done (Chunks 1–11: data preparation, iteration 1, the feedback
-loop and the first part of iteration 2). Next is Chunk 12, steps 111–120: archetype
-clustering.
+**Progress (Nov 26):**
+- Steps 1–160 done: data preparation, iteration 1, the feedback loop and all of iteration 2.
+  Iteration 2 covers decoupling, elasticity, archetypes, producers, RF v2 with SHAP, and the
+  2019–21 forecast.
+- Phase 5 is in progress, with these deliverables:
+  - workflow diagram (`images/workflow.png`);
+  - generated report (`report/A3_report.md` → `.docx`/`.pdf`);
+  - slides (`video/A3_slides.pptx`);
+  - video script (`video/script.md`);
+  - viva Q&A (`report/viva_qa.md`).
+- Team TODOs:
+  - fill in names and contributions (marked `TODO(team)`);
+  - record the video.
 
 ## Layout
 
@@ -42,11 +52,14 @@ data/raw/            World Energy Consumption.csv (the only input)
 data/processed/      clean panel, 2018 snapshot, trajectory tables (generated)
 notebooks/           A3_workflow.ipynb: orchestrates every phase (no logic inside)
 src/                 config.py (every constant), prep, features, stats, models,
-                     figures, plots, logbook, hypotheses
+                     figures, plots, logbook, hypotheses; iteration 2: archetypes,
+                     iter2_figures, forecast; Phase 5: workflow_diagram, report,
+                     export_docx, slides
 tests/               pytest tests for every transform, test and guard
 images/              every figure (200 dpi), registered in results/figures.csv
 results/             every number (JSON/CSV), inferences.md, review_log.md
-report/, video/      deliverables (Chunks 17-19)
+report/              A3_report.md/.docx/.pdf (generated), viva_qa.md
+video/               A3_slides.pptx (generated), script.md
 ```
 
 ## Reproduce
@@ -58,6 +71,9 @@ pip install -r requirements.txt
 jupyter nbconvert --to notebook --execute --inplace notebooks/A3_workflow.ipynb
 pytest -q
 ruff check src tests
+python -m src.report        # report/A3_report.md from results/
+python -m src.export_docx   # report/A3_report.docx
+python -m src.slides        # video/A3_slides.pptx
 ```
 
 The notebook regenerates everything in `data/processed/`, `images/` and `results/` from the

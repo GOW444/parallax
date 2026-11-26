@@ -117,7 +117,7 @@ NODES = [
         (
             "statistics: log OLS (HC3), KW + Holm",
             "unsupervised: archetype clustering",
-            "supervised: RF v2 (same folds)",
+            "supervised: RF v2, Holt / ARIMA forecast",
             "Mann-Kendall per archetype",
         ),
     ),
@@ -125,12 +125,12 @@ NODES = [
         "k2",
         "Knowledge",
         2,
-        "K2: inferences I2-1..I2-5",
+        "K2: inferences I2-1..I2-6",
         (
             "decoupling by income tier",
             "income elasticity of energy",
             "transition archetypes",
-            "producers; what RF v2 learned",
+            "producers; RF v2; 2019-21 forecast",
         ),
     ),
 ]

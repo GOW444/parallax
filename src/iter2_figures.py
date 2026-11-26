@@ -215,3 +215,54 @@ def rf_importance_v2(importance: pd.DataFrame, history_cols: list[str]) -> Figur
     ax.set_title("What RF v2 relies on: permutation importance on held-out folds")
     fig.tight_layout()
     return fig
+
+
+def forecast_vs_actual(
+    series_by_group: dict, forecasts: pd.DataFrame, best: dict, colours: list[str]
+) -> Figure:
+    """Small multiples per group: 2000-18 training line, 2019-21 forecasts, actual values."""
+    from src import forecast as fc
+
+    groups = list(series_by_group)
+    fig, axes = plt.subplots(1, len(groups), figsize=(3.3 * len(groups), 4.6), sharey=True)
+    styles = {"naive": ":", "holt": "--", "holt_damped": "-.", "arima_110": "-"}
+    for ax, group, colour in zip(np.atleast_1d(axes), groups, colours, strict=False):
+        series = series_by_group[group]
+        train = series[series.index <= config.PRE2019_MAX_YEAR]
+        ax.plot(train.index, train.to_numpy(), color=colour, linewidth=2, label="Train 2000-18")
+        test = series[series.index > config.PRE2019_MAX_YEAR]
+        ax.scatter(
+            test.index, test.to_numpy(), color="black", zorder=5, s=22, label="Actual 2019-21"
+        )
+        for method in fc.METHODS:
+            d = forecasts[(forecasts["group"] == group) & (forecasts["method"] == method)]
+            ax.plot(
+                d["year"],
+                d["forecast"],
+                color="#555555",
+                linestyle=styles[method],
+                linewidth=1.3,
+                label=fc.METHOD_LABELS[method],
+            )
+            if method == "arima_110":
+                ax.fill_between(
+                    d["year"],
+                    d["forecast"] - d["pi_half_width"],
+                    d["forecast"] + d["pi_half_width"],
+                    color="#999999",
+                    alpha=0.2,
+                )
+        ax.axvline(2020, color="#D55E00", linewidth=0.8, linestyle=":")
+        ax.axvspan(config.PRE2019_MAX_YEAR + 0.5, 2021.5, color="#F2F2F2", zorder=0)
+        ax.set_title(f"{group}\nbest: {fc.METHOD_LABELS[best[group]]}", fontsize=9.5)
+        ax.set_xlabel("Year")
+        ax.set_ylabel("Median low-carbon share (%)")
+        ax.set_xticks([2000, 2010, 2020])
+    np.atleast_1d(axes)[0].legend(loc="upper left", fontsize=7.5)
+    fig.suptitle(
+        "Forecast vs reality: trained on 2000-2018, tested on 2019-2021 (grey band = ARIMA 95% "
+        "interval, orange line = 2020)",
+        fontweight="bold",
+    )
+    fig.tight_layout()
+    return fig

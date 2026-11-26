@@ -429,8 +429,10 @@ ARCHETYPE_TRAJECTORY_COLS = [
     "d_carbon_int",
     "lowcarbon_slope",
 ]
-ARCHETYPE_CLR_COLS = [f"clr_{s}" for s in ["coal", "gas", "oil", "nuclear", "hydro", "solar",
-                                           "wind", "other_renewables"]]
+ARCHETYPE_CLR_COLS = [
+    f"clr_{s}"
+    for s in ["coal", "gas", "oil", "nuclear", "hydro", "solar", "wind", "other_renewables"]
+]
 ARCHETYPE_COLS = ARCHETYPE_TRAJECTORY_COLS + ARCHETYPE_CLR_COLS
 ARCHETYPE_METHOD_RULE = (
     "highest silhouette among the k (and methods) whose every cluster has >= "
@@ -447,8 +449,10 @@ ARCHETYPE_LABELS = {
     "d_solarwind": "solar+wind gain",
     "d_carbon_int": "carbon-intensity change",
     "lowcarbon_slope": "slope of low-carbon share",
-    **{f"clr_{s}": f"{s.replace('_', ' ')} (CLR)" for s in
-       ["coal", "gas", "oil", "nuclear", "hydro", "solar", "wind", "other_renewables"]},
+    **{
+        f"clr_{s}": f"{s.replace('_', ' ')} (CLR)"
+        for s in ["coal", "gas", "oil", "nuclear", "hydro", "solar", "wind", "other_renewables"]
+    },
 }
 # A country is a "fossil producer" if its mean fossil production per person over 2000-16
 # (oil + gas + coal, kWh) is at least its mean primary energy use per person over the same

@@ -353,19 +353,19 @@ wins any conflict.
 - [ ] **140. REVIEW #14**
 
 ## Chunk 15 · Phase 4e: forecast vs reality (steps 141–150) · Nov 25
-- [ ] **141.** Re-fit the chosen clustering on the pre-2019 features (same k and method). ARI
+- [x] **141.** Re-fit the chosen clustering on the pre-2019 features (same k and method). ARI
   vs the descriptive archetypes → `results/iter2_pre2019_groups.json`.
-- [ ] **142.** Median low-carbon share per pre-2019 group per year → `results/iter2_group_series.csv`.
-- [ ] **143.** Holt's linear trend (plain + damped) fitted on 2000–2018.
-- [ ] **144.** ARIMA(1,1,0), plus the naive last-value baseline.
-- [ ] **145.** Forecast 2019–2021. MAE and MAPE per group and method → `results/iter2_forecast_metrics.csv`.
-- [ ] **146.** Guard: assert the training data ends at 2018 and the test years are exactly
+- [x] **142.** Median low-carbon share per pre-2019 group per year → `results/iter2_group_series.csv`.
+- [x] **143.** Holt's linear trend (plain + damped) fitted on 2000–2018.
+- [x] **144.** ARIMA(1,1,0), plus the naive last-value baseline.
+- [x] **145.** Forecast 2019–2021. MAE and MAPE per group and method → `results/iter2_forecast_metrics.csv`.
+- [x] **146.** Guard: assert the training data ends at 2018 and the test years are exactly
   2019–2021.
-- [ ] **147.** Figure `iter2_forecast_vs_actual.png`: small multiples per group with train,
+- [x] **147.** Figure `iter2_forecast_vs_actual.png`: small multiples per group with train,
   forecast + interval band, actual values, and 2020 marked.
-- [ ] **148.** COVID check: the 2020 change in generation over the balanced panel, and the 2020
+- [x] **148.** COVID check: the 2020 change in generation over the balanced panel, and the 2020
   residuals per group → `results/iter2_covid.json`.
-- [ ] **149.** Log inference **I2-6**.
+- [x] **149.** Log inference **I2-6**.
 - [ ] **150. REVIEW #15**
 
 ## Chunk 16 · Phase 4f: iteration 2 wrap-up (steps 151–160) · Nov 25
@@ -388,7 +388,7 @@ wins any conflict.
   Knowledge, with a legend.
 - [x] **163.** Draw the iteration 2 row, plus one edge labelled exactly **"Feedback loop"**
   listing the transformations. No self-loops, and arrows never cross text.
-- [ ] **164.** Save `images/workflow.png` + `report/workflow.png` and register them in figures.csv.
+- [x] **164.** Save `images/workflow.png` + `report/workflow.png` and register them in figures.csv.
 - [ ] **165.** `src/report.py`: builds `report/A3_report.md` from a template. Numbers are
   inserted from `results/`, and figures are numbered automatically.
 - [ ] **166.** Report §1–2: introduction, research question, dataset, reference to A1, and
