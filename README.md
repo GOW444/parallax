@@ -37,13 +37,14 @@ of each country's mean GDP per person over 2000–02.
   2019–21 forecast.
 - Phase 5 is in progress, with these deliverables:
   - workflow diagram (`images/workflow.png`);
-  - generated report (`report/A3_report.md` → `.docx`/`.pdf`);
+  - generated report (`report/A3_report.md` → `.docx`);
   - slides (`video/A3_slides.pptx`);
   - video script (`video/script.md`);
   - viva Q&A (`report/viva_qa.md`).
 - Team TODOs:
   - fill in names and contributions (marked `TODO(team)`);
-  - record the video.
+  - record the video;
+  - export the .docx to PDF from Word and append `DAS732_A1_Report.pdf` as Appendix A.
 
 ## Layout
 
@@ -58,7 +59,7 @@ src/                 config.py (every constant), prep, features, stats, models,
 tests/               pytest tests for every transform, test and guard
 images/              every figure (200 dpi), registered in results/figures.csv
 results/             every number (JSON/CSV), inferences.md, review_log.md
-report/              A3_report.md/.docx/.pdf (generated), viva_qa.md
+report/              A3_report.md/.docx (generated), viva_qa.md
 video/               A3_slides.pptx (generated), script.md
 ```
 

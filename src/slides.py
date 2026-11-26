@@ -8,12 +8,13 @@ import json
 from pathlib import Path
 
 import pandas as pd
+from PIL import Image
 from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.util import Emu, Inches, Pt
-from PIL import Image
 
 from src import config, logbook
+from src.forecast import METHOD_LABELS
 
 VIDEO_DIR = config.ROOT / "video"
 PPTX_PATH = VIDEO_DIR / "A3_slides.pptx"
@@ -290,7 +291,7 @@ def build() -> Path:
                 "iter2_forecast_vs_actual.png",
                 [
                     "Trained on 2000-2018 only; tested on 2019-2021",
-                    "Mean MAE (pp): " + ", ".join(f"{m} {v:.1f}" for m, v in mean_mae.items()),
+                    "Mean MAE (pp): " + ", ".join(f"{METHOD_LABELS[m]} {v:.1f}" for m, v in mean_mae.sort_values().items()),
                 ],
                 0.98,
             )

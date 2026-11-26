@@ -19,3 +19,8 @@ pythonpath = ["."]
 testpaths = ["tests"]
 # NaN/inf arithmetic (division by zero, sqrt of a negative) must fail the tests, not warn
 filterwarnings = ["error::RuntimeWarning"]
+
+[tool.ruff.lint.per-file-ignores]
+# report and slide text: long prose strings read better unbroken
+"src/report.py" = ["E501"]
+"src/slides.py" = ["E501"]

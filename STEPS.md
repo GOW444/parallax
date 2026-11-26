@@ -389,45 +389,45 @@ wins any conflict.
 - [x] **163.** Draw the iteration 2 row, plus one edge labelled exactly **"Feedback loop"**
   listing the transformations. No self-loops, and arrows never cross text.
 - [x] **164.** Save `images/workflow.png` + `report/workflow.png` and register them in figures.csv.
-- [ ] **165.** `src/report.py`: builds `report/A3_report.md` from a template. Numbers are
+- [x] **165.** `src/report.py`: builds `report/A3_report.md` from a template. Numbers are
   inserted from `results/`, and figures are numbered automatically.
-- [ ] **166.** Report §1–2: introduction, research question, dataset, reference to A1, and
+- [x] **166.** Report §1–2: introduction, research question, dataset, reference to A1, and
   why no supplementary data was used.
-- [ ] **167.** Report §3: the workflow diagram + a rationale table for each module.
-- [ ] **168.** Report §4: data handling (including the producer break and Kosovo).
-- [ ] **169.** Report §5: iteration 1 figures with captions + "why this chart".
+- [x] **167.** Report §3: the workflow diagram + a rationale table for each module.
+- [x] **168.** Report §4: data handling (including the producer break and Kosovo).
+- [x] **169.** Report §5: iteration 1 figures with captions + "why this chart".
 - [ ] **170. REVIEW #17**
 
 ## Chunk 18 · Phase 5b: report finish (steps 171–180) · Nov 26
-- [ ] **171.** Report §6: feedback loop (inference → transformation table, before/after).
-- [ ] **172.** Report §7: iteration 2 results.
-- [ ] **173.** Report §8: discussion + limitations.
-- [ ] **174.** Report §9 conclusion + §10 references (check author, year, title, venue, DOI/URL).
+- [x] **171.** Report §6: feedback loop (inference → transformation table, before/after).
+- [x] **172.** Report §7: iteration 2 results.
+- [x] **173.** Report §8: discussion + limitations.
+- [x] **174.** Report §9 conclusion + §10 references (check author, year, title, venue, DOI/URL).
 - [ ] **175.** Report §11: A1 report appendix. **Blocked until the team supplies the A1 file.**
-- [ ] **176.** Export `report/A3_report.docx` with python-docx: headings, figures at a
+- [x] **176.** Export `report/A3_report.docx` with python-docx: headings, figures at a
   consistent width, captions, tables.
-- [ ] **177.** Inspect the docx: figure order and numbering, image sizes, no broken tables.
+- [x] **177.** Inspect the docx: figure order and numbering, image sizes, no broken tables.
 - [ ] **178.** Language and grammar pass: consistent terms (archetype and tier names), and
   numbers match `results/`.
 - [ ] **179.** Check the report against the rubric (CLAUDE.md §5).
 - [ ] **180. REVIEW #18**
 
 ## Chunk 19 · Phase 5c: slides + video script (steps 181–190) · Nov 26
-- [ ] **181.** Slide storyline (12–16 slides) mapped to the script sections → `video/slides_outline.md`.
-- [ ] **182.** `src/slides.py` (python-pptx): title, research question, workflow slides.
-- [ ] **183.** Iteration 1 slides (the problems found).
-- [ ] **184.** Feedback loop slides.
-- [ ] **185.** Iteration 2 slides (decoupling, archetypes, RF, forecast).
-- [ ] **186.** Takeaways, limitations and team-contribution slides → `video/A3_slides.pptx`.
-- [ ] **187.** Programmatic pptx check: every image is inside the slide bounds, no empty
+- [x] **181.** Slide storyline (12–16 slides) mapped to the script sections → `video/slides_outline.md`.
+- [x] **182.** `src/slides.py` (python-pptx): title, research question, workflow slides.
+- [x] **183.** Iteration 1 slides (the problems found).
+- [x] **184.** Feedback loop slides.
+- [x] **185.** Iteration 2 slides (decoupling, archetypes, RF, forecast).
+- [x] **186.** Takeaways, limitations and team-contribution slides → `video/A3_slides.pptx`.
+- [x] **187.** Programmatic pptx check: every image is inside the slide bounds, no empty
   placeholders, text fits.
-- [ ] **188.** `video/script.md`: 6–8 min, timings, speaker per section (every member speaks).
+- [x] **188.** `video/script.md`: 6–8 min, timings, speaker per section (every member speaks).
 - [ ] **189.** `video/recording_checklist.md`: settings, which notebook cells to demo live,
   the order of the slides. The team records the video.
 - [ ] **190. REVIEW #19**
 
 ## Chunk 20 · Final checks (steps 191–200) · Nov 27
-- [ ] **191.** `report/viva_qa.md`: answers grounded in `results/` numbers.
+- [x] **191.** `report/viva_qa.md`: answers grounded in `results/` numbers.
 - [ ] **192.** Images folder audit: every image is used in the report and every figure exists,
   with names matching the plan.
 - [ ] **193.** Reproducibility: delete `data/processed`, `results` and `images`, re-run

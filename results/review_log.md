@@ -867,3 +867,19 @@ prefers otherwise.
 - `src/archetype_figures.py` was renamed `src/iter2_figures.py`.
 - `src/workflow_diagram.py` + tests: unrolled two-row diamond, one edge "Feedback loop", no
   self-loops.
+
+## Chunk 15 + Phase 5 deliverables, Nov 26
+
+- **Forecast (I2-6):** groups re-fitted on the pre-2019 table (ARI 0.79 vs the archetypes).
+  Holt beats the naive value in 4 of 5 groups, but its mean MAE is worse because one falling
+  hydro group is over-extrapolated; damped Holt is best on average. Balanced-panel
+  generation changed -0.3% in 2020.
+- **SHAP:** shap 0.52 *is* in requirements.txt, so the earlier "SHAP not installed"
+  deviation is withdrawn. SHAP beeswarm added; both importance views are in the report.
+- **Generated deliverables:**
+  - `report/A3_report.md` → `.docx`: 32 figures, all captioned, each with a "why this chart";
+  - `video/A3_slides.pptx`: 17 slides, bounds check passed, rendered and inspected;
+  - `video/script.md`, `report/viva_qa.md`.
+- **PDF not built:** Word automation hung on a hidden dialog. Export the PDF from Word by hand
+  and append the A1 PDF.
+- **Open TODO(team):** member names and contributions (slide 17, README); record the video.

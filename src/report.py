@@ -417,10 +417,13 @@ def build() -> str:
         f"re-scored v1 ({rfc['n_dropped_from_iter1']} iteration 1 countries lack trajectory "
         "data). The leakage guard is re-run on the new features. A log transform would not "
         "change a Random Forest (trees split on ranks), so any change comes from the new "
-        "features, not from rescaling.\n"
+        "features, not from rescaling. Importance is read two ways: held-out permutation "
+        "importance and SHAP values [13] from a forest refitted on all rows (for explanation "
+        "only).\n"
     )
     add(fig.place("iter2_rf_improvement.png"))
     add(fig.place("iter2_rf_importance.png"))
+    add(fig.place("iter2_shap_summary.png"))
     add(_inference_block(inf, "I2-5"))
     if has_forecast:
         add("### 7.6 [Supervised] Forecast vs reality, 2019-2021\n")
@@ -524,6 +527,8 @@ def build() -> str:
         "*Scandinavian Journal of Statistics* 6(2): 65-70.",
         "DAS732 A1 report, Team Spectrum (2026). *The World Energy Transition, 1990-2022* "
         "(Appendix A).",
+        "S. M. Lundberg and S.-I. Lee (2017). A Unified Approach to Interpreting Model "
+        "Predictions. *Advances in Neural Information Processing Systems* 30 (NeurIPS 2017).",
     ]
     add("\n".join(f"[{i}] {r}" for i, r in enumerate(refs, start=1)) + "\n")
 
@@ -531,7 +536,7 @@ def build() -> str:
     add("## Appendix A. A1 report\n")
     add(
         "The A1 report (*The World Energy Transition, 1990-2022*, Team Spectrum) is attached "
-        "in full as `DAS732_A1_Report.pdf` and appended to the PDF version of this report. "
+        "in full as `DAS732_A1_Report.pdf`; in the submitted PDF it follows this page. "
         "As the brief states, it is included for completeness and is not assessed as part of "
         "A3.\n"
     )
