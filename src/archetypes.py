@@ -79,3 +79,17 @@ def name_archetypes(centres_z: np.ndarray, cols: list[str]) -> list[str]:
         ]
         names.append(" + ".join(parts))
     return names
+
+
+def short_name(centre_z: np.ndarray, cols: list[str], trend: str) -> str:
+    """Readable archetype name: '<largest CLR source> grids, <trend>'.
+
+    Rule (documented, not hand-picked): the CLR feature with the largest positive centroid
+    gives the source; the Hamed-Rao Mann-Kendall trend of the archetype's median low-carbon
+    share gives the direction (rising / falling / flat).
+    """
+    clr_idx = [i for i, c in enumerate(cols) if c.startswith("clr_")]
+    best = max(clr_idx, key=lambda i: centre_z[i])
+    source = cols[best].removeprefix("clr_").replace("_", " ")
+    direction = {"increasing": "rising", "decreasing": "falling"}.get(trend, "flat")
+    return f"{source.capitalize()} grids, low-carbon share {direction}"

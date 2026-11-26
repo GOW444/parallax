@@ -450,3 +450,35 @@ ARCHETYPE_LABELS = {
     **{f"clr_{s}": f"{s.replace('_', ' ')} (CLR)" for s in
        ["coal", "gas", "oil", "nuclear", "hydro", "solar", "wind", "other_renewables"]},
 }
+# A country is a "fossil producer" if its mean fossil production per person over 2000-16
+# (oil + gas + coal, kWh) is at least its mean primary energy use per person over the same
+# years, i.e. it produces at least as much fossil energy as it consumes (a net-exporter proxy
+# built only from this dataset).
+PRODUCER_RATIO = 1.0
+PRODUCER_YEARS = (2000, 2016)
+# Iteration 2 Random Forest: the iteration 1 features plus leak-free history and context
+# from the pre-2019 trajectory table (I1-4). No mix-derived column (guarded by
+# assert_no_leakage).
+RF_FEATURES_HISTORY = [
+    "cagr_gdp_pc",
+    "cagr_energy_pc",
+    "decoupling",
+    "income_tier_code",
+    "small_state_code",
+    "log_oil_prod_pc_mean_00_16",
+    "log_gas_prod_pc_mean_00_16",
+    "log_coal_prod_pc_mean_00_16",
+]
+RF_FEATURES_ITER2 = RF_FEATURES_ITER1 + RF_FEATURES_HISTORY
+FEATURE_SHORT.update(
+    {
+        "cagr_gdp_pc": "GDP growth 2001-17",
+        "cagr_energy_pc": "Energy growth 2001-17",
+        "decoupling": "Decoupling 2001-17",
+        "income_tier_code": "Income tier (2000-02)",
+        "small_state_code": "Small state",
+        "log_oil_prod_pc_mean_00_16": "Oil production history",
+        "log_gas_prod_pc_mean_00_16": "Gas production history",
+        "log_coal_prod_pc_mean_00_16": "Coal production history",
+    }
+)

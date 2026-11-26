@@ -1,6 +1,6 @@
-archetype,name,n_core,n_with_small_states
-1,high gas (CLR) + low start low-carbon share,45,45
-2,high start low-carbon share + high hydro (CLR),42,43
-3,high oil (CLR) + low start low-carbon share,24,30
-4,low coal change + low carbon-intensity change,24,25
-5,low gain in low-carbon share + low slope of low-carbon share,17,19
+archetype,name,n_core,n_with_small_states,short_name,sen_slope_pp_per_yr,p_hamed_rao,example_countries
+1,high gas (CLR) + low start low-carbon share,45,45,"Gas grids, low-carbon share flat",0.029499999999999815,0.7498718710117755,India; Indonesia; Pakistan; Nigeria
+2,high start low-carbon share + high hydro (CLR),42,43,"Hydro grids, low-carbon share flat",0.14308333333333323,0.1758957490227675,Brazil; Ethiopia; Democratic Republic of Congo; Turkey
+3,high oil (CLR) + low start low-carbon share,24,30,"Oil grids, low-carbon share rising",0.6222142857142856,0.0008189640737135129,Yemen; Niger; Syria; Cambodia
+4,low coal change + low carbon-intensity change,24,25,"Coal grids, low-carbon share rising",1.3692777777777778,1.1503716623728621e-07,China; United States; Germany; United Kingdom
+5,low gain in low-carbon share + low slope of low-carbon share,17,19,"Hydro grids, low-carbon share falling",-1.362714285714286,1.7045954425753962e-08,Vietnam; Tanzania; Peru; Ghana

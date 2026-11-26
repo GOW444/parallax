@@ -322,33 +322,33 @@ wins any conflict.
 - [ ] **120. REVIEW #12**
 
 ## Chunk 13 · Phase 4c: archetype interpretation (steps 121–130) · Nov 25
-- [ ] **121.** Figure `iter2_archetype_profiles.png`: diverging heatmap, features grouped.
-- [ ] **122.** Name the archetypes by a documented centroid rule → `results/archetype_names.csv`.
+- [x] **121.** Figure `iter2_archetype_profiles.png`: diverging heatmap, features grouped.
+- [x] **122.** Name the archetypes by a documented centroid rule → `results/archetype_names.csv`.
   Check the names against the member countries.
-- [ ] **123.** Figure `iter2_archetype_map.png`.
-- [ ] **124.** Median + IQR of low-carbon share per archetype per year → `results/iter2_archetype_series.csv`.
-- [ ] **125.** Figure `iter2_archetype_small_multiples.png`: shared y-axis, n per archetype
+- [x] **123.** Figure `iter2_archetype_map.png`.
+- [x] **124.** Median + IQR of low-carbon share per archetype per year → `results/iter2_archetype_series.csv`.
+- [x] **125.** Figure `iter2_archetype_small_multiples.png`: shared y-axis, n per archetype
   in the panel titles.
-- [ ] **126.** Hamed–Rao Mann-Kendall + Sen's slope per archetype → `results/iter2_mk_archetypes.csv`.
-- [ ] **127.** Producer vs non-producer carbon intensity (Mann-Whitney) → `results/iter2_producers.json`.
+- [x] **126.** Hamed–Rao Mann-Kendall + Sen's slope per archetype → `results/iter2_mk_archetypes.csv`.
+- [x] **127.** Producer vs non-producer carbon intensity (Mann-Whitney) → `results/iter2_producers.json`.
   Figure `iter2_producers_carbon.png`.
-- [ ] **128.** Log inferences **I2-3** and **I2-4**.
-- [ ] **129.** Log inferences **I2-1** and **I2-2**.
+- [x] **128.** Log inferences **I2-3** and **I2-4**.
+- [x] **129.** Log inferences **I2-1** and **I2-2**.
 - [ ] **130. REVIEW #13**
 
 ## Chunk 14 · Phase 4d: Random Forest v2 (steps 131–140) · Nov 25
-- [ ] **131.** RF v2 table: iteration 1 features + leak-free pre-2019 history features, on
+- [x] **131.** RF v2 table: iteration 1 features + leak-free pre-2019 history features, on
   the RF countries. If any countries lack trajectory data, use the intersection for **both**
   models and document it.
-- [ ] **132.** Run `assert_no_leakage` on the v2 features.
-- [ ] **133.** Cross-validation on the **same folds** → `results/iter2_rf_metrics.json`.
-- [ ] **134.** If the rows changed, re-score iteration 1 on the same rows
+- [x] **132.** Run `assert_no_leakage` on the v2 features.
+- [x] **133.** Cross-validation on the **same folds** → `results/iter2_rf_metrics.json`.
+- [x] **134.** If the rows changed, re-score iteration 1 on the same rows
   → `results/rf_comparison.csv`.
-- [ ] **135.** Fold-by-fold paired differences, with a note on small n (no overclaiming).
-- [ ] **136.** Figure `iter2_rf_improvement.png`: R² and MAE bars with fold-sd error bars.
-- [ ] **137.** SHAP TreeExplainer values → `results/iter2_shap_values.csv`.
-- [ ] **138.** Figure `iter2_shap_summary.png` (beeswarm).
-- [ ] **139.** Change in the worst errors, v1 vs v2 → `results/iter2_rf_error_change.csv`.
+- [x] **135.** Fold-by-fold paired differences, with a note on small n (no overclaiming).
+- [x] **136.** Figure `iter2_rf_improvement.png`: R² and MAE bars with fold-sd error bars.
+- [x] **137.** SHAP TreeExplainer values → `results/iter2_shap_values.csv`.
+- [x] **138.** Figure `iter2_shap_summary.png` (beeswarm).
+- [x] **139.** Change in the worst errors, v1 vs v2 → `results/iter2_rf_error_change.csv`.
   Log inference **I2-5**.
 - [ ] **140. REVIEW #14**
 
@@ -382,11 +382,11 @@ wins any conflict.
 - [ ] **160. REVIEW #16:** Phase 4 complete, phase report given.
 
 ## Chunk 17 · Phase 5a: workflow diagram + report start (steps 161–170) · Nov 25–26
-- [ ] **161.** `src/workflow_diagram.py`: the nodes (id, label, diamond stage, iteration) are
+- [x] **161.** `src/workflow_diagram.py`: the nodes (id, label, diamond stage, iteration) are
   defined as data.
-- [ ] **162.** Draw the iteration 1 row, colour-coded Data / Visualization / Model /
+- [x] **162.** Draw the iteration 1 row, colour-coded Data / Visualization / Model /
   Knowledge, with a legend.
-- [ ] **163.** Draw the iteration 2 row, plus one edge labelled exactly **"Feedback loop"**
+- [x] **163.** Draw the iteration 2 row, plus one edge labelled exactly **"Feedback loop"**
   listing the transformations. No self-loops, and arrows never cross text.
 - [ ] **164.** Save `images/workflow.png` + `report/workflow.png` and register them in figures.csv.
 - [ ] **165.** `src/report.py`: builds `report/A3_report.md` from a template. Numbers are

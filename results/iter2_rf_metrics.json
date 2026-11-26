@@ -1,0 +1,119 @@
+{
+  "n": 162,
+  "n_folds": 5,
+  "target": "carbon_intensity_elec",
+  "features": [
+    "gdp_pc",
+    "energy_per_capita",
+    "per_capita_electricity",
+    "population",
+    "oil_prod_pc_2016",
+    "gas_prod_pc_2016",
+    "coal_prod_pc_2016",
+    "cagr_gdp_pc",
+    "cagr_energy_pc",
+    "decoupling",
+    "income_tier_code",
+    "small_state_code",
+    "log_oil_prod_pc_mean_00_16",
+    "log_gas_prod_pc_mean_00_16",
+    "log_coal_prod_pc_mean_00_16"
+  ],
+  "per_fold": [
+    {
+      "fold": 1,
+      "n_test": 31,
+      "r2": 0.14281129667628123,
+      "mae": 169.08035800000013,
+      "rmse": 200.75360515049596,
+      "baseline_r2": -0.05379460906200939,
+      "baseline_mae": 194.37521817286384,
+      "baseline_rmse": 222.58870351241185
+    },
+    {
+      "fold": 2,
+      "n_test": 33,
+      "r2": -0.09898083309672678,
+      "mae": 179.35615054545426,
+      "rmse": 223.8192199949382,
+      "baseline_r2": -0.020822165320652397,
+      "baseline_mae": 180.4266894526662,
+      "baseline_rmse": 215.71351943598393
+    },
+    {
+      "fold": 3,
+      "n_test": 33,
+      "r2": 0.0734819772940355,
+      "mae": 177.33372593939396,
+      "rmse": 207.93071310669347,
+      "baseline_r2": -0.021018467544679176,
+      "baseline_mae": 187.8367665022316,
+      "baseline_rmse": 218.2772662082807
+    },
+    {
+      "fold": 4,
+      "n_test": 33,
+      "r2": -0.018725509449299294,
+      "mae": 153.47418109090918,
+      "rmse": 191.27794384067855,
+      "baseline_r2": -4.203431878369024e-05,
+      "baseline_mae": 159.7923948790228,
+      "baseline_rmse": 189.51580364647754
+    },
+    {
+      "fold": 5,
+      "n_test": 32,
+      "r2": 0.05636375006979166,
+      "mae": 168.51181074999982,
+      "rmse": 194.07681880707912,
+      "baseline_r2": -0.0043801891991672726,
+      "baseline_mae": 169.93059375,
+      "baseline_rmse": 200.2259790093956
+    }
+  ],
+  "r2_mean": 0.030990136298816463,
+  "r2_sd": 0.0926248442008051,
+  "mae_mean": 169.55124526515146,
+  "mae_sd": 10.203888038281564,
+  "rmse_mean": 203.57166017997707,
+  "rmse_sd": 13.021078384250265,
+  "baseline_r2_mean": -0.020011493089058384,
+  "baseline_r2_sd": 0.02113106159625584,
+  "baseline_mae_mean": 178.47233255135689,
+  "baseline_mae_sd": 13.841200078042501,
+  "baseline_rmse_mean": 209.26425436250992,
+  "baseline_rmse_sd": 13.892984512970319,
+  "pooled_oof": {
+    "r2": 0.04497553070731686,
+    "mae": 169.56347495061726,
+    "rmse": 204.00231487420103
+  },
+  "pooled_oof_baseline": {
+    "r2": -0.007429876922186995,
+    "mae": 178.32872741282813,
+    "rmse": 209.5247152887324
+  },
+  "leakage_check": {
+    "passed": true,
+    "banned_fragments": [
+      "_share_elec",
+      "clr_",
+      "low_carbon",
+      "lowcarbon",
+      "carbon_int",
+      "d_coal",
+      "d_solarwind",
+      "archetype",
+      "greenhouse_gas",
+      "ghg",
+      "coal_electricity",
+      "gas_electricity",
+      "oil_electricity",
+      "nuclear_electricity",
+      "hydro_electricity",
+      "solar_electricity",
+      "wind_electricity",
+      "other_renewable_electricity"
+    ]
+  }
+}

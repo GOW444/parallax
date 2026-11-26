@@ -244,3 +244,23 @@ def pairwise_mannwhitney(values: pd.Series, groups: pd.Series, order: list[str])
     table["p_holm"] = p_holm
     table["significant_holm"] = reject
     return table
+
+
+def two_group_mannwhitney(values: pd.Series, in_group: pd.Series) -> dict:
+    """Two-sided Mann-Whitney U of `values` where in_group is True vs False.
+
+    Rank-based, so a few very dirty or very clean grids cannot drive the result. Returns
+    both medians, U, p and the rank-biserial effect size r = 1 - 2U / (n_a n_b).
+    """
+    data = pd.DataFrame({"v": values, "g": in_group.astype(bool)}).dropna()
+    a, b = data.loc[data["g"], "v"], data.loc[~data["g"], "v"]
+    u, p = sps.mannwhitneyu(a, b, alternative="two-sided")
+    return {
+        "n_in": len(a),
+        "n_out": len(b),
+        "median_in": float(a.median()),
+        "median_out": float(b.median()),
+        "u": float(u),
+        "p": float(p),
+        "rank_biserial": float(1 - 2 * u / (len(a) * len(b))),
+    }

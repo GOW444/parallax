@@ -1,0 +1,70 @@
+{
+  "n_in": 45,
+  "n_out": 160,
+  "median_in": 489.71,
+  "median_out": 442.6485,
+  "u": 3873.0,
+  "p": 0.4382726099455193,
+  "rank_biserial": -0.07583333333333342,
+  "producers": [
+    "Algeria",
+    "Angola",
+    "Australia",
+    "Azerbaijan",
+    "Bolivia",
+    "Brunei",
+    "Cameroon",
+    "Canada",
+    "Chad",
+    "Colombia",
+    "Congo",
+    "Denmark",
+    "East Timor",
+    "Ecuador",
+    "Egypt",
+    "Equatorial Guinea",
+    "Gabon",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Kazakhstan",
+    "Kuwait",
+    "Libya",
+    "Malaysia",
+    "Mexico",
+    "Mongolia",
+    "Myanmar",
+    "Nigeria",
+    "Norway",
+    "Oman",
+    "Papua New Guinea",
+    "Qatar",
+    "Russia",
+    "Saudi Arabia",
+    "South Africa",
+    "South Sudan",
+    "Sudan",
+    "Syria",
+    "Trinidad and Tobago",
+    "Turkmenistan",
+    "United Arab Emirates",
+    "Uzbekistan",
+    "Venezuela",
+    "Vietnam",
+    "Yemen"
+  ],
+  "cleanest_producers": [
+    {
+      "country": "Norway",
+      "carbon_intensity": 34.584
+    },
+    {
+      "country": "Canada",
+      "carbon_intensity": 132.696
+    },
+    {
+      "country": "Angola",
+      "carbon_intensity": 159.002
+    }
+  ]
+}

@@ -851,3 +851,19 @@ prefers otherwise.
   `iter2_mk_archetypes.csv`).
 - Not done: I2-3/I2-4 text, producer test (step 127), GMM BIC is noisy (n_init = 5).
 - Caveat: silhouettes in different feature spaces are not strictly comparable.
+
+
+## Chunks 13-14 (steps 121-139) + diagram code (161-163), Nov 26
+
+- Archetypes get rule-based short names (largest positive CLR source + Mann-Kendall direction):
+  Gas/flat, Hydro/flat, Oil/rising, Coal/rising (fastest, +1.37 pp/yr), Hydro/falling (-1.36 pp/yr).
+- I2-1 to I2-5 logged from results/ values.
+- **Contradicted hypothesis (I2-4):** producers (fossil production >= own energy use, 2000-16,
+  n = 45) are not significantly dirtier (medians 490 vs 443 gCO2/kWh, p = 0.44, r = -0.08).
+- **RF v2 (I2-5):** same 162 countries and folds; R2 0.02 -> 0.03, MAE 166 -> 170. Within
+  fold noise (v2 better in 2 of 5 folds). Only coal production history adds importance.
+- **Deviation:** SHAP is not in requirements.txt, so steps 137-138 use held-out permutation
+  importance (iter2_rf_importance.png) instead of a SHAP beeswarm.
+- `src/archetype_figures.py` was renamed `src/iter2_figures.py`.
+- `src/workflow_diagram.py` + tests: unrolled two-row diamond, one edge "Feedback loop", no
+  self-loops.
