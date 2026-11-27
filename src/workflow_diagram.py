@@ -1,20 +1,23 @@
-"""Unrolled Keim et al. (2008) workflow diagram: iteration 1 row, feedback loop, iteration 2 row.
+"""Workflow diagram in the style asked for in class: the rolled diamond, then the unrolled chain.
 
-Why unrolled: the brief asks for the feedback loop to be drawn by repeating the diamond
-(Data -> Visualization <-> Models -> Knowledge) for the second iteration, joined by one edge
-labelled exactly "Feedback loop", instead of an arrow bending back onto the first diamond.
-There are no self-loops; the only two-way edge is Visualization <-> Models, which is the
-diamond's own interaction step.
+(a) Rolled: Keim et al.'s (2008) generic diamond (Data, Visualization, Model, Knowledge),
+    two-way edges, the self-loops of the generic model and the feedback loop drawn as an
+    arrow back to Data. This is the reference model, not our application.
+(b) Unrolled: the actual sequence of modules in our application, one oval per module,
+    coloured by the diamond stage it belongs to. Each iteration runs
+    Data -> Visualization -> three model lanes ([Statistics], [Unsupervised], [Supervised]),
+    each lane Model -> Visualization of its output -> Knowledge. Iteration 1's knowledge
+    feeds forward into new Data through a single edge labelled exactly "Feedback loop".
+    The unrolled chain has no self-loops and no back-edges: every arrow points forward.
 
-Nodes are data (id, stage, iteration, title, modules), so the drawing code never hard-codes
-a position or a colour per node.
+Nodes and edges are data (see NODES / EDGES), so tests can check the rules the brief sets.
 """
 
 from dataclasses import dataclass
 
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+from matplotlib.patches import Ellipse, FancyArrowPatch
 
 STAGES = ["Data", "Visualization", "Models", "Knowledge"]
 # Okabe-Ito colours, one per diamond stage (light fill, strong edge)
@@ -25,6 +28,7 @@ STAGE_COLORS = {
     "Knowledge": ("#F5D5E6", "#CC79A7"),
 }
 FEEDBACK_LABEL = "Feedback loop"
+NODE_W, NODE_H = 2.25, 1.0  # ellipse width / height in data units
 
 
 @dataclass(frozen=True)
@@ -33,246 +37,257 @@ class Node:
     stage: str
     iteration: int
     title: str
-    modules: tuple[str, ...]
+    detail: str
+    x: float
+    y: float
 
 
+# x = column (left to right in time), y = lane. Iteration 1 lanes at y = 9.6 / 8.2 / 6.8,
+# iteration 2 lanes at y = 3.4 / 2.0 / 0.6.
 NODES = [
-    Node(
-        "d1",
-        "Data",
-        1,
-        "D1: raw 2018 snapshot",
-        (
-            "OWID World Energy CSV (only source)",
-            "drop aggregates, 2000-2021",
-            "within-country interpolation",
-            "coverage rule, balanced panel",
-        ),
-    ),
-    Node(
-        "v1",
-        "Visualization",
-        1,
-        "V1: explore",
-        (
-            "missingness heatmap",
-            "global mix area, distributions",
-            "GDP vs energy scatter, choropleth",
-            "Pearson vs Spearman heatmaps",
-            "change 2000-02 -> 2016-18",
-        ),
-    ),
-    Node(
-        "m1",
-        "Models",
-        1,
-        "M1: baseline models",
-        (
-            "statistics: Mann-Kendall, OLS + BP",
-            "unsupervised: K-means + PCA",
-            "supervised: Random Forest (CV)",
-        ),
-    ),
-    Node(
-        "k1",
-        "Knowledge",
-        1,
-        "K1: inferences I1-1..I1-4",
-        (
-            "I1-1 skew, heteroscedasticity",
-            "I1-2 shares are compositional",
-            "I1-3 snapshot hides paths",
-            "I1-4 RF lacks context",
-        ),
-    ),
-    Node(
-        "d2",
-        "Data",
-        2,
-        "D2: transformed data",
-        (
-            "log1p of skewed variables",
-            "CLR of the 8 mix shares",
-            "one row per country (trajectories)",
-            "income tiers, history; pre-2019 table",
-        ),
-    ),
-    Node(
-        "v2",
-        "Visualization",
-        2,
-        "V2: explore again",
-        (
-            "decoupling quadrant, tier box plots",
-            "log-log elasticity, slope chart",
-            "archetype heatmap, map, time panels",
-            "producers box plot",
-        ),
-    ),
-    Node(
-        "m2",
-        "Models",
-        2,
-        "M2: re-modelling",
-        (
-            "statistics: log OLS (HC3), KW + Holm",
-            "unsupervised: archetype clustering",
-            "supervised: RF v2, Holt / ARIMA forecast",
-            "Mann-Kendall per archetype",
-        ),
-    ),
-    Node(
-        "k2",
-        "Knowledge",
-        2,
-        "K2: inferences I2-1..I2-6",
-        (
-            "decoupling by income tier",
-            "income elasticity of energy",
-            "transition archetypes",
-            "producers; RF v2; 2019-21 forecast",
-        ),
-    ),
+    # ---- iteration 1
+    Node("d1a", "Data", 1, "Data", "raw OWID CSV\n22,012 rows", 0.0, 8.2),
+    Node("d1b", "Data", 1, "Data", "clean panel,\n2018 snapshot", 2.7, 8.2),
+    Node("v1a", "Visualization", 1, "Visualization", "missingness, mix,\nscatter, map", 5.4, 8.2),
+    Node("m1s", "Models", 1, "[Statistics]", "Mann-Kendall,\nOLS + BP", 8.1, 9.6),
+    Node("m1u", "Models", 1, "[Unsupervised]", "K-means + PCA", 8.1, 8.2),
+    Node("m1r", "Models", 1, "[Supervised]", "Random Forest\n(5-fold CV)", 8.1, 6.8),
+    Node("v1s", "Visualization", 1, "Vis", "residuals,\nchange plot", 10.8, 9.6),
+    Node("v1u", "Visualization", 1, "Vis", "biplot,\ncluster map", 10.8, 8.2),
+    Node("v1r", "Visualization", 1, "Vis", "pred vs actual,\nerror map", 10.8, 6.8),
+    Node("k1s", "Knowledge", 1, "Knowledge", "I1-1 skew\nI1-3 hidden paths", 13.5, 9.6),
+    Node("k1u", "Knowledge", 1, "Knowledge", "I1-2 shares are\ncompositional", 13.5, 8.2),
+    Node("k1r", "Knowledge", 1, "Knowledge", "I1-4 RF lacks\ncontext", 13.5, 6.8),
+    Node("k1", "Knowledge", 1, "Inferences", "I1-1 .. I1-4", 16.2, 8.2),
+    # ---- iteration 2
+    Node("d2", "Data", 2, "Data", "log1p, CLR,\ntrajectories, tiers", 2.7, 2.0),
+    Node("v2a", "Visualization", 2, "Visualization", "decoupling quadrant,\nslope chart", 5.4, 2.0),
+    Node("m2s", "Models", 2, "[Statistics]", "log-log OLS,\nKW + Holm, MK", 8.1, 3.4),
+    Node("m2u", "Models", 2, "[Unsupervised]", "archetypes\nK-means vs GMM", 8.1, 2.0),
+    Node("m2r", "Models", 2, "[Supervised]", "RF v2 + SHAP,\nHolt / ARIMA", 8.1, 0.6),
+    Node("v2s", "Visualization", 2, "Vis", "log-log fit,\nbox plots", 10.8, 3.4),
+    Node("v2u", "Visualization", 2, "Vis", "heatmap, map,\nsmall multiples", 10.8, 2.0),
+    Node("v2r", "Visualization", 2, "Vis", "RF bars, SHAP,\nforecast", 10.8, 0.6),
+    Node("k2s", "Knowledge", 2, "Knowledge", "I2-1 decoupling\nI2-2, I2-4", 13.5, 3.4),
+    Node("k2u", "Knowledge", 2, "Knowledge", "I2-3 transition\narchetypes", 13.5, 2.0),
+    Node("k2r", "Knowledge", 2, "Knowledge", "I2-5 RF v2\nI2-6 forecast", 13.5, 0.6),
+    Node("k2", "Knowledge", 2, "Answer", "research\nquestion", 16.2, 2.0),
 ]
 
-# Directed edges within each iteration. ("v", "m") is drawn two-headed: the diamond's
-# Visualization <-> Models interaction. No node points to itself.
-ITERATION_EDGES = [("d", "v", False), ("v", "m", True), ("m", "k", False)]
+_CHAIN = [("d1a", "d1b"), ("d1b", "v1a")]
+for _it in (1, 2):
+    _start = "v1a" if _it == 1 else "v2a"
+    for _lane in ("s", "u", "r"):
+        _CHAIN += [
+            (_start, f"m{_it}{_lane}"),
+            (f"m{_it}{_lane}", f"v{_it}{_lane}"),
+            (f"v{_it}{_lane}", f"k{_it}{_lane}"),
+            (f"k{_it}{_lane}", f"k{_it}"),
+        ]
+_CHAIN.append(("d2", "v2a"))
 
-BOX_W, BOX_H = 3.8, 2.45
-X_GAP = 0.9
-ROW_Y = {1: 4.2, 2: 0.0}
-
-
-def _position(node: Node) -> tuple[float, float]:
-    col = STAGES.index(node.stage)
-    return col * (BOX_W + X_GAP), ROW_Y[node.iteration]
-
-
-def _draw_node(ax, node: Node) -> None:
-    x, y = _position(node)
-    fill, edge = STAGE_COLORS[node.stage]
-    ax.add_patch(
-        FancyBboxPatch(
-            (x, y),
-            BOX_W,
-            BOX_H,
-            boxstyle="round,pad=0.04,rounding_size=0.12",
-            facecolor=fill,
-            edgecolor=edge,
-            linewidth=2,
-        )
-    )
-    ax.text(
-        x + BOX_W / 2,
-        y + BOX_H - 0.25,
-        node.title,
-        ha="center",
-        va="top",
-        fontsize=10.5,
-        fontweight="bold",
-    )
-    body = "\n".join(f"- {m}" for m in node.modules)
-    ax.text(x + 0.15, y + BOX_H - 0.68, body, ha="left", va="top", fontsize=8.1, linespacing=1.45)
+# (from, to, label). The only labelled edge is the feedback loop, and it is the only edge
+# between the iterations.
+EDGES = [(a, b, "") for a, b in _CHAIN] + [("k1", "d2", FEEDBACK_LABEL)]
 
 
-def _arrow(ax, start, end, two_way=False, **kwargs) -> None:
-    style = "<|-|>" if two_way else "-|>"
+def edges() -> list[tuple[str, str, str]]:
+    """Every edge of the unrolled chain as (from, to, label); used by the tests."""
+    return list(EDGES)
+
+
+# ---------------------------------------------------------------------------- drawing
+def _arrow(ax, start, end, color="#333333", lw=1.5, rad=0.0, style="-|>", **kw):
     ax.add_patch(
         FancyArrowPatch(
             start,
             end,
             arrowstyle=style,
-            mutation_scale=16,
-            linewidth=1.8,
-            color="#333333",
-            **kwargs,
+            mutation_scale=13,
+            linewidth=lw,
+            color=color,
+            connectionstyle=f"arc3,rad={rad}",
+            shrinkA=0,
+            shrinkB=0,
+            **kw,
         )
+    )
+
+
+def _edge_points(a: Node, b: Node) -> tuple[tuple[float, float], tuple[float, float]]:
+    """Start/end on the ellipse borders along the line between the two centres."""
+    dx, dy = b.x - a.x, b.y - a.y
+    length = (dx**2 + dy**2) ** 0.5
+    ux, uy = dx / length, dy / length
+    # distance from centre to the ellipse border in direction (ux, uy)
+    rx, ry = NODE_W / 2, NODE_H / 2
+    r = 1 / ((ux / rx) ** 2 + (uy / ry) ** 2) ** 0.5
+    return (a.x + ux * (r + 0.03), a.y + uy * (r + 0.03)), (
+        b.x - ux * (r + 0.06),
+        b.y - uy * (r + 0.06),
+    )
+
+
+def _draw_node(ax, node: Node) -> None:
+    fill, edge = STAGE_COLORS[node.stage]
+    ax.add_patch(
+        Ellipse((node.x, node.y), NODE_W, NODE_H, facecolor=fill, edgecolor=edge, linewidth=1.8)
+    )
+    ax.text(
+        node.x, node.y + 0.2, node.title, ha="center", va="center", fontsize=8.6, fontweight="bold"
+    )
+    ax.text(
+        node.x, node.y - 0.13, node.detail, ha="center", va="center", fontsize=6.9, linespacing=1.15
+    )
+
+
+def _draw_rolled(ax) -> None:
+    """Panel (a): the generic diamond with self-loops and the feedback loop back to Data."""
+    pos = {
+        "Data": (0, 0),
+        "Visualization": (2.2, 1.1),
+        "Models": (2.2, -1.1),
+        "Knowledge": (4.4, 0),
+    }
+    for stage, (x, y) in pos.items():
+        fill, edge = STAGE_COLORS[stage]
+        ax.add_patch(Ellipse((x, y), 1.7, 0.75, facecolor=fill, edgecolor=edge, linewidth=1.8))
+        ax.text(x, y, stage, ha="center", va="center", fontsize=9, fontweight="bold")
+        # self-loop of the generic model (Keim et al. allow iterating within a stage)
+        _arrow(ax, (x - 0.25, y + 0.36), (x + 0.25, y + 0.36), rad=-1.6, lw=1.0, color="#777777")
+    for a, b in [
+        ("Data", "Visualization"),
+        ("Data", "Models"),
+        ("Visualization", "Knowledge"),
+        ("Models", "Knowledge"),
+    ]:
+        (xa, ya), (xb, yb) = pos[a], pos[b]
+        dx, dy = xb - xa, yb - ya
+        n = (dx**2 + dy**2) ** 0.5
+        sa = (xa + dx / n * 0.75, ya + dy / n * 0.45)
+        sb = (xb - dx / n * 0.75, yb - dy / n * 0.45)
+        _arrow(ax, sa, sb, style="<|-|>", lw=1.2)
+    # feedback loop: Knowledge back to Data, routed underneath the diamond
+    floor = -1.95
+    ax.plot([4.4, 4.4, 0], [-0.4, floor, floor], color="#D55E00", linewidth=1.8)
+    _arrow(ax, (0, floor), (0, -0.4), color="#D55E00", lw=1.8)
+    ax.text(
+        2.2,
+        floor - 0.08,
+        FEEDBACK_LABEL,
+        ha="center",
+        va="top",
+        fontsize=9.5,
+        color="#D55E00",
+        fontweight="bold",
+    )
+    ax.set_xlim(-1.2, 5.6)
+    ax.set_ylim(-2.5, 1.95)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    ax.set_title("(a) Rolled: Keim et al. (2008) diamond", fontsize=11, fontweight="bold")
+
+
+def _draw_unrolled(ax) -> None:
+    by_id = {n.node_id: n for n in NODES}
+    for node in NODES:
+        _draw_node(ax, node)
+    for a, b, label in EDGES:
+        na, nb = by_id[a], by_id[b]
+        if label == FEEDBACK_LABEL:
+            continue
+        start, end = _edge_points(na, nb)
+        _arrow(ax, start, end)
+
+    # the feedback loop: from iteration 1's inferences down and back to iteration 2's data,
+    # routed between the two bands so it never crosses a node
+    k1, d2 = by_id["k1"], by_id["d2"]
+    corridor_y = 5.15
+    path = [(k1.x, k1.y - NODE_H / 2 - 0.05), (k1.x, corridor_y), (d2.x, corridor_y)]
+    for (x0, y0), (x1, y1) in zip(path[:-1], path[1:], strict=True):
+        ax.plot([x0, x1], [y0, y1], color="#D55E00", linewidth=2.4, solid_capstyle="round")
+    _arrow(ax, (d2.x, corridor_y), (d2.x, d2.y + NODE_H / 2 + 0.05), color="#D55E00", lw=2.4)
+    ax.text(
+        (k1.x + d2.x) / 2,
+        corridor_y + 0.28,
+        FEEDBACK_LABEL,
+        ha="center",
+        va="bottom",
+        fontsize=12,
+        fontweight="bold",
+        color="#D55E00",
+        bbox={"boxstyle": "round,pad=0.25", "facecolor": "white", "edgecolor": "#D55E00"},
+    )
+    ax.text(
+        (k1.x + d2.x) / 2,
+        corridor_y - 0.12,
+        "I1-1 → log1p     I1-2 → CLR     I1-3 → country trajectories     "
+        "I1-4 → income tiers + history",
+        ha="center",
+        va="top",
+        fontsize=8.2,
+        color="#333333",
+    )
+
+    for label, y in (("Iteration 1", 8.2), ("Iteration 2", 2.0)):
+        ax.text(
+            -1.55, y, label, rotation=90, ha="center", va="center", fontsize=11.5, fontweight="bold"
+        )
+    for y0, y1 in ((6.15, 10.25), (-0.05, 4.05)):
+        ax.add_patch(
+            plt.Rectangle(
+                (-1.25, y0), 18.75, y1 - y0, facecolor="#F7F7F7", edgecolor="#DDDDDD", zorder=0
+            )
+        )
+    ax.set_xlim(-1.9, 17.6)
+    ax.set_ylim(-0.2, 10.4)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    ax.set_title(
+        "(b) Unrolled: the modules of our application, in order", fontsize=11, fontweight="bold"
     )
 
 
 def draw() -> Figure:
-    """Return the unrolled workflow figure (two rows of four stages + the feedback edge)."""
-    fig, ax = plt.subplots(figsize=(16, 9))
-    by_id = {n.node_id: n for n in NODES}
-    for node in NODES:
-        _draw_node(ax, node)
-    for it in (1, 2):
-        for a, b, two_way in ITERATION_EDGES:
-            xa, ya = _position(by_id[f"{a}{it}"])
-            xb, _ = _position(by_id[f"{b}{it}"])
-            _arrow(ax, (xa + BOX_W + 0.05, ya + BOX_H / 2), (xb - 0.05, ya + BOX_H / 2), two_way)
-
-    # The single edge joining the iterations: K1 -> D2, labelled exactly "Feedback loop"
-    xk, yk = _position(by_id["k1"])
-    xd, yd = _position(by_id["d2"])
-    start = (xk + BOX_W / 2, yk - 0.05)
-    end = (xd + BOX_W / 2, yd + BOX_H + 0.05)
-    _arrow(ax, start, end, connectionstyle="arc3,rad=0.0", linestyle="-")
-    mid_x, mid_y = (start[0] + end[0]) / 2, (start[1] + end[1]) / 2
-    ax.text(
-        mid_x,
-        mid_y + 0.12,
-        FEEDBACK_LABEL,
-        ha="center",
-        va="center",
-        fontsize=13,
-        fontweight="bold",
-        color="#D55E00",
-        bbox={"boxstyle": "round,pad=0.3", "facecolor": "white", "edgecolor": "#D55E00"},
-    )
-    ax.text(
-        mid_x,
-        mid_y - 0.55,
-        "I1-1 -> log1p   I1-2 -> CLR   I1-3 -> trajectories   I1-4 -> context features",
-        ha="center",
-        va="center",
-        fontsize=8.8,
-        color="#333333",
-    )
-
-    width = 4 * BOX_W + 3 * X_GAP
-    for it, label in ((1, "Iteration 1"), (2, "Iteration 2")):
-        ax.text(
-            -0.35,
-            ROW_Y[it] + BOX_H / 2,
-            label,
-            rotation=90,
-            ha="center",
-            va="center",
-            fontsize=12,
-            fontweight="bold",
-        )
+    """Return the two-panel workflow figure (rolled diamond above, unrolled chain below)."""
+    fig = plt.figure(figsize=(16, 12.5))
+    grid = fig.add_gridspec(2, 2, height_ratios=[1, 2.25], width_ratios=[1, 1.35])
+    _draw_rolled(fig.add_subplot(grid[0, 0]))
+    legend_ax = fig.add_subplot(grid[0, 1])
+    legend_ax.axis("off")
     for i, stage in enumerate(STAGES):
-        _, edge = STAGE_COLORS[stage]
-        ax.text(
-            i * (BOX_W + X_GAP) + BOX_W / 2,
-            ROW_Y[1] + BOX_H + 0.35,
-            stage.upper(),
-            ha="center",
-            fontsize=11,
-            fontweight="bold",
-            color=edge,
+        fill, edge = STAGE_COLORS[stage]
+        legend_ax.add_patch(
+            Ellipse(
+                (0.12, 0.8 - i * 0.17),
+                0.13,
+                0.11,
+                facecolor=fill,
+                edgecolor=edge,
+                linewidth=1.8,
+                transform=legend_ax.transAxes,
+            )
         )
-    ax.set_xlim(-0.7, width + 0.2)
-    ax.set_ylim(-0.3, ROW_Y[1] + BOX_H + 0.8)
-    ax.set_aspect("equal")
-    ax.axis("off")
-    ax.set_title(
-        "Visual analytics workflow (Keim et al. 2008 diamond), unrolled over two iterations",
-        fontsize=14,
-        fontweight="bold",
+        legend_ax.text(
+            0.22, 0.8 - i * 0.17, stage, va="center", fontsize=11, transform=legend_ax.transAxes
+        )
+    legend_ax.text(
+        0.02,
+        0.03,
+        "Unrolled chain: every arrow points forward; no self-loops; the only edge\n"
+        "between iterations is the Feedback loop, carrying four inferences to four\n"
+        "transformations of the data.",
+        fontsize=9.5,
+        color="#333333",
+        transform=legend_ax.transAxes,
     )
+    legend_ax.set_title("Stage colours", fontsize=11, fontweight="bold")
+    _draw_unrolled(fig.add_subplot(grid[1, :]))
+    fig.suptitle(
+        "Visual analytics workflow of this project (Keim et al. 2008)",
+        fontsize=15,
+        fontweight="bold",
+        y=0.995,
+    )
+    fig.tight_layout()
     return fig
-
-
-def edges() -> list[tuple[str, str, str]]:
-    """Every edge as (from, to, label): used by the tests to check the diagram's rules."""
-    out = []
-    for it in (1, 2):
-        for a, b, two_way in ITERATION_EDGES:
-            out.append((f"{a}{it}", f"{b}{it}", ""))
-            if two_way:
-                out.append((f"{b}{it}", f"{a}{it}", ""))
-    out.append(("k1", "d2", FEEDBACK_LABEL))
-    return out

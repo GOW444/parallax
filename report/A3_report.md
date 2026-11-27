@@ -29,11 +29,11 @@ The only input is OWID's *World Energy Consumption* file [2]: 22,012 rows, 306 e
 
 ## 3. The visual analytics workflow
 
-Keim et al. [1] describe visual analytics as a loop between data, visualization, models and knowledge. We run that diamond twice and draw it *unrolled* (Figure 1): iteration 1 on the raw 2018 snapshot, iteration 2 on the transformed data. One edge, labelled *Feedback loop*, joins them: it carries four inferences from iteration 1 to four transformations of the data. Within an iteration the only two-way edge is Visualization ⇄ Models, the diamond's own interaction step; there are no self-loops.
+Keim et al. [1] describe visual analytics as a loop between data, visualization, models and knowledge (Figure 1a): the generic diamond has two-way edges, lets each stage iterate on itself, and closes with a feedback loop from knowledge back to data. Drawn that way, it hides the order in which things actually happened. Figure 1b therefore *unrolls* our application: every module is one node, coloured by its diamond stage, in the order it ran. Each iteration goes from data to an exploratory visualization and then splits into three lanes, [Statistics], [Unsupervised] and [Supervised]. In each lane a model is followed by a visualization of its output and then by the knowledge drawn from it. Iteration 1's four inferences reach iteration 2's data through a single forward edge labelled *Feedback loop*, which carries the four transformations of Section 6. The unrolled chain has no self-loops and no back-edges.
 
 ![Figure 1](../images/workflow.png)
 
-**Figure 1.** Unrolled visual analytics workflow: iteration 1 and iteration 2 rows of the Keim et al. diamond, joined by the edge labelled 'Feedback loop' with the four inference -> transformation pairs. *Why this chart:* Unrolling the diamond shows the order of modules and makes the feedback loop a single, labelled edge, as the brief requires, instead of a cycle drawn back onto itself.
+**Figure 1.** (a) The generic Keim et al. diamond, rolled, with its feedback loop back to Data. (b) Our application unrolled: one oval per module in the order it ran, coloured by diamond stage, with three lanes per iteration ([Statistics], [Unsupervised], [Supervised]) and a single forward edge labelled 'Feedback loop' carrying the four inference -> transformation pairs. *Why this chart:* Showing the rolled diamond next to its unrolled form makes the feedback loop explicit: the cycle becomes one labelled forward edge, with no self-loops or back-edges, as the brief asks, and every model is visibly followed by a visualization and a piece of knowledge.
 
 **Table 2.** Modules of the workflow and the rationale for each.
 

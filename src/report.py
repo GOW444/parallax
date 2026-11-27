@@ -165,11 +165,16 @@ def build() -> str:
     add("## 3. The visual analytics workflow\n")
     add(
         "Keim et al. [1] describe visual analytics as a loop between data, visualization, "
-        "models and knowledge. We run that diamond twice and draw it *unrolled* (Figure 1): "
-        "iteration 1 on the raw 2018 snapshot, iteration 2 on the transformed data. One edge, "
-        "labelled *Feedback loop*, joins them: it carries four inferences from iteration 1 to "
-        "four transformations of the data. Within an iteration the only two-way edge is "
-        "Visualization ⇄ Models, the diamond's own interaction step; there are no self-loops.\n"
+        "models and knowledge (Figure 1a): the generic diamond has two-way edges, lets each "
+        "stage iterate on itself, and closes with a feedback loop from knowledge back to data. "
+        "Drawn that way, it hides the order in which things actually happened. Figure 1b "
+        "therefore *unrolls* our application: every module is one node, coloured by its "
+        "diamond stage, in the order it ran. Each iteration goes from data to an exploratory "
+        "visualization and then splits into three lanes, [Statistics], [Unsupervised] and "
+        "[Supervised]. In each lane a model is followed by a visualization of its output and "
+        "then by the knowledge drawn from it. Iteration 1's four inferences reach iteration 2's "
+        "data through a single forward edge labelled *Feedback loop*, which carries the four "
+        "transformations of Section 6. The unrolled chain has no self-loops and no back-edges.\n"
     )
     add(fig.place("workflow.png"))
     modules = pd.DataFrame(
