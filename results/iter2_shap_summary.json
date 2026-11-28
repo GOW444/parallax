@@ -1,19 +1,20 @@
 {
   "mean_abs_shap": {
-    "population": 36.678,
-    "cagr_energy_pc": 17.209,
-    "log_coal_prod_pc_mean_00_16": 14.633,
-    "per_capita_electricity": 14.21,
-    "gas_prod_pc_2016": 12.898,
-    "coal_prod_pc_2016": 11.413,
-    "cagr_gdp_pc": 10.816,
-    "energy_per_capita": 9.813,
-    "decoupling": 9.558,
-    "log_gas_prod_pc_mean_00_16": 9.289,
-    "gdp_pc": 8.634,
-    "log_oil_prod_pc_mean_00_16": 4.797,
-    "oil_prod_pc_2016": 4.086,
-    "income_tier_code": 2.89,
-    "small_state_code": 0.251
+    "population": 34.287,
+    "log_energy_per_gdp_2018": 15.823,
+    "cagr_energy_pc": 15.293,
+    "per_capita_electricity": 14.444,
+    "log_coal_prod_pc_mean_00_16": 13.602,
+    "gas_prod_pc_2016": 11.694,
+    "coal_prod_pc_2016": 11.252,
+    "cagr_gdp_pc": 9.928,
+    "log_gas_prod_pc_mean_00_16": 8.475,
+    "decoupling": 8.152,
+    "gdp_pc": 7.72,
+    "energy_per_capita": 6.281,
+    "log_oil_prod_pc_mean_00_16": 3.563,
+    "oil_prod_pc_2016": 3.525,
+    "income_tier_code": 2.778,
+    "small_state_code": 0.31
   }
 }

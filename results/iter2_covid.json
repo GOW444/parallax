@@ -3,8 +3,8 @@
   "balanced_panel_generation_change_2019_pct": 1.3189091184500068,
   "median_abs_error_2020_by_method": {
     "arima_110": 2.0093324254295197,
-    "holt": 3.1980594988536435,
-    "holt_damped": 1.9227917051972554,
+    "holt": 3.1980595513527756,
+    "holt_damped": 1.9227926061360705,
     "naive": 1.8190000000000026
   },
   "share_of_2020_errors_positive": 0.65
