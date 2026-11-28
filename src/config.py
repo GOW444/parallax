@@ -331,6 +331,7 @@ MIN_GROUP_SIZE = 5  # smallest group used in a group comparison test
 # 2018 GDP-per-person quartiles of the RF rows: used only to describe where errors fall
 GDP_QUARTILE_LABELS = ["Q1 (poorest)", "Q2", "Q3", "Q4 (richest)"]
 KMEANS_N_INIT = 20
+GMM_N_INIT = 20  # BIC is noisy with few restarts (open item since Review #12)
 K_RANGE_ITER1 = range(2, 9)  # k = 2..8
 K_RANGE_ITER2 = range(3, 8)  # k = 3..7
 MIN_CLUSTER_SIZE = 5
@@ -469,13 +470,20 @@ RF_FEATURES_HISTORY = [
     "decoupling",
     "income_tier_code",
     "small_state_code",
+    "log_energy_per_gdp_2018",  # A3_PLAN §6.4: energy intensity, new for trees (a ratio)
     "log_oil_prod_pc_mean_00_16",
     "log_gas_prod_pc_mean_00_16",
     "log_coal_prod_pc_mean_00_16",
 ]
 RF_FEATURES_ITER2 = RF_FEATURES_ITER1 + RF_FEATURES_HISTORY
+# Sensitivity only: the v2 feature set as it was before the plan's energy-intensity feature
+# was added (Review #12-#15 audit found it missing). Scored on the same rows and folds.
+RF_FEATURES_ITER2_NO_INTENSITY = RF_FEATURES_ITER1 + [
+    c for c in RF_FEATURES_HISTORY if c != "log_energy_per_gdp_2018"
+]
 FEATURE_SHORT.update(
     {
+        "log_energy_per_gdp_2018": "Energy intensity (2018)",
         "cagr_gdp_pc": "GDP growth 2001-17",
         "cagr_energy_pc": "Energy growth 2001-17",
         "decoupling": "Decoupling 2001-17",
@@ -486,3 +494,54 @@ FEATURE_SHORT.update(
         "log_coal_prod_pc_mean_00_16": "Coal production history",
     }
 )
+
+# Workflow diagram: one colour pair per Keim et al. diamond stage (light fill, strong
+# Okabe-Ito edge), and the exact label the brief requires on the edge between iterations.
+STAGE_COLORS = {
+    "Data": ("#D6EAF8", "#0072B2"),
+    "Visualization": ("#FDEBD0", "#E69F00"),
+    "Models": ("#D5F5E3", "#009E73"),
+    "Knowledge": ("#F5D5E6", "#CC79A7"),
+}
+FEEDBACK_LABEL = "Feedback loop"
+# A3_PLAN.md section 0: the data story that every inference is meant to answer
+RESEARCH_QUESTION = (
+    "How are the world's countries moving through the energy transition, and does getting "
+    "richer still mean using more energy and running a dirtier electricity grid?"
+)
+
+# --------------------------------------------------------------------------------------
+# Iteration 2 hypothesis check (STEPS 152): rules fixed here, before reading the verdicts
+# --------------------------------------------------------------------------------------
+MIN_STABLE_ARI = 0.8  # I2-3: mean ARI across seeds at or above this = "stable" (high agreement)
+ARCHETYPE_STRONG_Z = 1.0  # a centroid this many sd above average = a defining feature
+ARCHETYPE_LEVEL_Z = 0.5  # a centroid this many sd above average = clearly high
+RF_V2_MIN_FOLDS_BETTER = 4  # I2-5: v2 must win on at least this many of the paired folds
+# The plan states few explicit iteration 2 hypotheses; these are read from A3_PLAN.md
+# sections 5, 6.2-6.6 (the section is named in each entry).
+PLAN_HYPOTHESES_ITER2 = {
+    "I2-1": (
+        "Energy use is decoupling from GDP, and more so in richer income tiers "
+        "(A3_PLAN.md 6.6 question I2-1, 6.2 on tiers)."
+    ),
+    "I2-2": (
+        "Logs help OLS: a log-log fit explains more and is less heteroscedastic "
+        "(A3_PLAN.md 5, 6.2)."
+    ),
+    "I2-3": (
+        "Trajectory + CLR clusters are better separated than the iteration 1 clusters and read as "
+        "transition archetypes such as 'Legacy clean (hydro/nuclear)' and 'Fast wind/solar "
+        "adopters' (A3_PLAN.md 5, 6.3)."
+    ),
+    "I2-4": (
+        "Fossil producers are stuck with carbon-intensive grids (A3_PLAN.md 6.6 question I2-4)."
+    ),
+    "I2-5": (
+        "Adding leak-free history features improves the Random Forest; if not, report that "
+        "(A3_PLAN.md 6.4, change #4)."
+    ),
+    "I2-6": (
+        "Trend-based group forecasts beat the naive last value, and 2020 shows a COVID demand "
+        "shock (A3_PLAN.md 6.5)."
+    ),
+}

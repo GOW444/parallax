@@ -291,7 +291,10 @@ def build() -> Path:
                 "iter2_forecast_vs_actual.png",
                 [
                     "Trained on 2000-2018 only; tested on 2019-2021",
-                    "Mean MAE (pp): " + ", ".join(f"{METHOD_LABELS[m]} {v:.1f}" for m, v in mean_mae.sort_values().items()),
+                    "Mean MAE (pp): "
+                    + ", ".join(
+                        f"{METHOD_LABELS[m]} {v:.1f}" for m, v in mean_mae.sort_values().items()
+                    ),
                 ],
                 0.98,
             )

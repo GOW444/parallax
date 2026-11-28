@@ -187,10 +187,215 @@ def check_i1_4(rf_metrics: dict, groups: dict) -> list[dict]:
     ]
 
 
-def hypothesis_table(claims: list[dict]) -> pd.DataFrame:
+def hypothesis_table(
+    claims: list[dict], plan_hypotheses: dict[str, str] = config.PLAN_HYPOTHESES_ITER1
+) -> pd.DataFrame:
     """All claims as one table, with the plan hypothesis and the overall verdict per inference."""
     table = pd.DataFrame(claims)
     verdicts = table.groupby("inference")["supported"].apply(lambda s: overall_verdict(list(s)))
-    table.insert(1, "plan_hypothesis", table["inference"].map(config.PLAN_HYPOTHESES_ITER1))
+    table.insert(1, "plan_hypothesis", table["inference"].map(plan_hypotheses))
     table["overall_verdict"] = table["inference"].map(verdicts)
     return table
+
+
+# ------------------------------------------------------------------ iteration 2 (STEPS 152)
+def check_i2_1(counts: pd.DataFrame, pairwise: pd.DataFrame, kw: dict) -> list[dict]:
+    """Decoupling: how common, where it is absolute, whether tiers differ and in what order.
+
+    `counts` is iter2_decoupling_counts.csv (tiers x classes, with an 'All' row), `pairwise`
+    the Holm-corrected Mann-Whitney table and `kw` the Kruskal-Wallis result.
+    """
+    rows = counts.set_index("income_tier")
+    total, richest = rows.loc["All"], rows.loc[config.INCOME_TIER_LABELS[-1]]
+    decoupled = total["absolute decoupling"] + total["relative decoupling"]
+    significant = {
+        frozenset((r.group_a, r.group_b)): bool(r.significant_holm) for r in pairwise.itertuples()
+    }
+    ladder = [
+        significant[frozenset(pair)]
+        for pair in zip(config.INCOME_TIER_LABELS[:-1], config.INCOME_TIER_LABELS[1:], strict=True)
+    ]
+    return [
+        claim(
+            "I2-1",
+            "Most countries decouple energy from GDP",
+            "more than half of the countries show absolute or relative decoupling",
+            f"{decoupled} of {total['All']} ({decoupled / total['All']:.0%})",
+            decoupled > total["All"] / 2,
+        ),
+        claim(
+            "I2-1",
+            "Decoupling is absolute in the richest tier",
+            f"more than half of the {config.INCOME_TIER_LABELS[-1]}-tier countries decoupled "
+            "absolutely (GDP up, energy down)",
+            f"{richest['absolute decoupling']} of {richest['All']}",
+            richest["absolute decoupling"] > richest["All"] / 2,
+        ),
+        claim(
+            "I2-1",
+            "Decoupling differs by income tier",
+            f"Kruskal-Wallis p < {config.ALPHA}",
+            f"p = {kw['kruskal_p']:.1e}",
+            kw["kruskal_p"] < config.ALPHA,
+        ),
+        claim(
+            "I2-1",
+            "Each richer tier decouples more than the one below it",
+            f"every adjacent pair of tiers differs (Holm-corrected p < {config.ALPHA})",
+            f"{sum(ladder)} of {len(ladder)} adjacent pairs differ",
+            all(ladder),
+        ),
+    ]
+
+
+def check_i2_2(ols: pd.DataFrame) -> list[dict]:
+    """Logs help OLS: more variance explained and less heteroscedasticity than the raw fit."""
+    raw = ols[ols["model"].str.startswith("raw")].iloc[0]
+    log = ols[ols["model"].str.startswith("log")].iloc[0]
+    return [
+        claim(
+            "I2-2",
+            "The log-log fit explains more variance",
+            "R-squared of the log fit > R-squared of the raw fit",
+            f"R-squared {raw['r_squared']:.2f} -> {log['r_squared']:.2f}",
+            log["r_squared"] > raw["r_squared"],
+        ),
+        claim(
+            "I2-2",
+            "The log-log fit is less heteroscedastic",
+            "Breusch-Pagan p of the log fit > p of the raw fit",
+            f"p = {raw['breusch_pagan_p']:.3f} -> {log['breusch_pagan_p']:.3f}",
+            log["breusch_pagan_p"] > raw["breusch_pagan_p"],
+        ),
+        claim(
+            "I2-2",
+            "The log-log fit is homoscedastic",
+            f"Breusch-Pagan p >= {config.ALPHA}",
+            f"p = {log['breusch_pagan_p']:.3f}",
+            log["breusch_pagan_p"] >= config.ALPHA,
+        ),
+    ]
+
+
+def check_i2_3(
+    silhouettes: dict, stability: dict, centroids: pd.DataFrame, names: pd.DataFrame
+) -> list[dict]:
+    """Archetypes: separation vs iteration 1, stability, and the plan's example archetypes."""
+    k = stability["k"]
+    rows = silhouettes["rows"]
+    it1 = next(
+        r for r in rows if r["space"].startswith("Iteration 1") and r["space"].endswith(f"k = {k}")
+    )
+    it2 = next(r for r in rows if r["space"].startswith("Iteration 2"))
+    c = centroids.set_index("archetype")
+    label = dict(zip(names["archetype"], names["short_name"], strict=True))
+    solar = c["d_solarwind"].idxmax()
+    legacy = c[
+        (c["lowcarbon_2000"] > config.ARCHETYPE_LEVEL_Z)
+        & (
+            (c["clr_hydro"] > config.ARCHETYPE_LEVEL_Z)
+            | (c["clr_nuclear"] > config.ARCHETYPE_LEVEL_Z)
+        )
+    ]
+    return [
+        claim(
+            "I2-3",
+            "The iteration 2 clusters are better separated than iteration 1's",
+            f"silhouette in the iteration 2 space > silhouette of the iteration 1 space at the "
+            f"same k = {k} and the same countries",
+            f"{it1['silhouette']:.2f} (iteration 1) vs {it2['silhouette']:.2f} (iteration 2)",
+            it2["silhouette"] > it1["silhouette"],
+        ),
+        claim(
+            "I2-3",
+            "The archetypes are stable across seeds",
+            f"mean ARI over {stability['n_seeds']} seeds >= {config.MIN_STABLE_ARI:g}",
+            f"mean {stability['ari_mean']:.2f}, min {stability['ari_min']:.2f}",
+            stability["ari_mean"] >= config.MIN_STABLE_ARI,
+        ),
+        claim(
+            "I2-3",
+            "There is a 'fast wind/solar adopters' archetype",
+            f"some archetype's centroid is > {config.ARCHETYPE_STRONG_Z:g} sd above average on "
+            "the change in solar+wind share",
+            f"A{solar} ({label[solar]}): {c.loc[solar, 'd_solarwind']:+.2f} sd",
+            bool(c.loc[solar, "d_solarwind"] > config.ARCHETYPE_STRONG_Z),
+        ),
+        claim(
+            "I2-3",
+            "There is a 'legacy clean (hydro/nuclear)' archetype",
+            f"some archetype has a high 2000 low-carbon share and a high hydro or nuclear CLR "
+            f"(both > {config.ARCHETYPE_LEVEL_Z:g} sd)",
+            ", ".join(f"A{a} ({label[a]})" for a in legacy.index) or "none",
+            len(legacy) > 0,
+        ),
+    ]
+
+
+def check_i2_4(producers: dict) -> list[dict]:
+    """Producers vs non-producers: are producers' grids dirtier?"""
+    return [
+        claim(
+            "I2-4",
+            "Fossil producers have dirtier grids",
+            f"producers' median carbon intensity is higher and Mann-Whitney p < {config.ALPHA}",
+            f"median {producers['median_in']:.0f} vs {producers['median_out']:.0f} gCO2/kWh, "
+            f"p = {producers['p']:.2f}",
+            producers["median_in"] > producers["median_out"] and producers["p"] < config.ALPHA,
+        )
+    ]
+
+
+def check_i2_5(rf: dict) -> list[dict]:
+    """RF v2 vs v1 on the same rows and folds, and v2 vs the mean predictor."""
+    n_folds = rf["n_folds"]
+    return [
+        claim(
+            "I2-5",
+            "The history features improve the Random Forest",
+            f"v2 has the lower MAE in at least {config.RF_V2_MIN_FOLDS_BETTER} of {n_folds} "
+            "paired folds and a negative mean paired change",
+            f"better in {rf['folds_v2_better_mae']} of {n_folds}, mean change "
+            f"{rf['mean_d_mae']:+.1f} gCO2/kWh",
+            rf["folds_v2_better_mae"] >= config.RF_V2_MIN_FOLDS_BETTER and rf["mean_d_mae"] < 0,
+        ),
+        claim(
+            "I2-5",
+            "RF v2 beats the mean predictor",
+            "v2 mean MAE < mean-predictor mean MAE",
+            f"{rf['v2_mae_mean']:.0f} vs {rf['baseline_mae_mean']:.0f} gCO2/kWh",
+            rf["v2_mae_mean"] < rf["baseline_mae_mean"],
+        ),
+    ]
+
+
+def check_i2_6(forecast_metrics: pd.DataFrame, covid: dict) -> list[dict]:
+    """Do the trend methods beat the naive last value, and did 2020 show a demand shock?"""
+    mean_mae = forecast_metrics.groupby("method")["mae"].mean()
+    labels = {
+        "holt": "Holt linear trend",
+        "holt_damped": "damped Holt",
+        "arima_110": "ARIMA(1,1,0)",
+    }
+    claims = [
+        claim(
+            "I2-6",
+            f"{label} beats the naive last value",
+            "mean MAE over the pre-2019 groups < naive mean MAE",
+            f"{mean_mae[m]:.2f} vs {mean_mae['naive']:.2f} pp",
+            mean_mae[m] < mean_mae["naive"],
+        )
+        for m, label in labels.items()
+    ]
+    change = covid["balanced_panel_generation_change_2020_pct"]
+    claims.append(
+        claim(
+            "I2-6",
+            "2020 shows a COVID demand shock",
+            "electricity generation of the balanced panel fell in 2020",
+            f"{change:+.1f}% in 2020 vs "
+            f"{covid['balanced_panel_generation_change_2019_pct']:+.1f}% in 2019",
+            change < 0,
+        )
+    )
+    return claims

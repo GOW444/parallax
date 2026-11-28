@@ -101,3 +101,120 @@ def test_ordinal_wording():
         "11th",
         "1st",
     ]
+
+
+# ------------------------------------------------------------------ iteration 2 checks
+def _counts() -> pd.DataFrame:
+    return pd.DataFrame(
+        {
+            "income_tier": [*config.INCOME_TIER_LABELS, "All"],
+            "absolute decoupling": [1, 2, 3, 8, 14],
+            "relative decoupling": [3, 4, 4, 1, 12],
+            "coupled": [5, 3, 2, 1, 11],
+            "GDP fell": [1, 1, 1, 0, 3],
+            "All": [10, 10, 10, 10, 40],
+        }
+    )
+
+
+def _pairwise(adjacent_significant: list[bool]) -> pd.DataFrame:
+    tiers = config.INCOME_TIER_LABELS
+    return pd.DataFrame(
+        {
+            "group_a": tiers[:-1],
+            "group_b": tiers[1:],
+            "significant_holm": adjacent_significant,
+        }
+    )
+
+
+def test_check_i2_1_ladder_needs_every_adjacent_pair():
+    kw = {"kruskal_p": 1e-4}
+    ladder, *_ = reversed(hypotheses.check_i2_1(_counts(), _pairwise([True, False, False]), kw))
+    assert not ladder["supported"] and ladder["value"] == "1 of 3 adjacent pairs differ"
+    full = hypotheses.check_i2_1(_counts(), _pairwise([True, True, True]), kw)
+    assert [c["supported"] for c in full] == [True, True, True, True][:3] + [True]
+    # most decouple (26 of 40), richest tier mostly absolute (8 of 10)
+    assert full[0]["value"].startswith("26 of 40") and full[1]["value"] == "8 of 10"
+
+
+def test_check_i2_2_separates_improvement_from_homoscedasticity():
+    ols = pd.DataFrame(
+        {
+            "model": ["raw: energy ~ gdp", "log: log energy ~ log gdp"],
+            "r_squared": [0.7, 0.9],
+            "breusch_pagan_p": [0.001, 0.04],
+        }
+    )
+    more, less, homo = hypotheses.check_i2_2(ols)
+    assert more["supported"] and less["supported"] and not homo["supported"]
+
+
+def test_check_i2_3_reads_the_plan_examples_from_the_centroids():
+    k = 2
+    centroids = pd.DataFrame(
+        {
+            "archetype": [1, 2],
+            "d_solarwind": [1.5, 0.0],
+            "lowcarbon_2000": [-1.0, 1.0],
+            "clr_hydro": [0.0, 1.0],
+            "clr_nuclear": [0.0, 0.0],
+        }
+    )
+    names = pd.DataFrame({"archetype": [1, 2], "short_name": ["Coal", "Hydro"]})
+    sil = {
+        "rows": [
+            {"space": f"Iteration 1 space (raw shares), k = {k}", "silhouette": 0.3},
+            {"space": "Iteration 1 space (raw shares), k = 8", "silhouette": 0.4},
+            {"space": f"Iteration 2 space (trajectory + CLR), k = {k}", "silhouette": 0.1},
+        ]
+    }
+    stab = {"k": k, "n_seeds": 20, "ari_mean": 0.82, "ari_min": 0.7}
+    better, stable, solar, legacy = hypotheses.check_i2_3(sil, stab, centroids, names)
+    assert not better["supported"] and "0.30 (iteration 1) vs 0.10" in better["value"]
+    assert stable["supported"] and solar["supported"] and legacy["supported"]
+    assert legacy["value"] == "A2 (Hydro)"
+
+
+def test_check_i2_4_needs_higher_median_and_significance():
+    (dirty,) = hypotheses.check_i2_4({"median_in": 490.0, "median_out": 443.0, "p": 0.44})
+    assert not dirty["supported"]
+    (dirty,) = hypotheses.check_i2_4({"median_in": 490.0, "median_out": 443.0, "p": 0.01})
+    assert dirty["supported"]
+
+
+def test_check_i2_5_uses_the_fold_rule_from_config():
+    rf = {
+        "n_folds": 5,
+        "folds_v2_better_mae": 2,
+        "mean_d_mae": 3.4,
+        "v2_mae_mean": 170.0,
+        "baseline_mae_mean": 178.0,
+    }
+    better, beats_mean = hypotheses.check_i2_5(rf)
+    assert not better["supported"] and beats_mean["supported"]
+    rf.update(folds_v2_better_mae=config.RF_V2_MIN_FOLDS_BETTER, mean_d_mae=-1.0)
+    assert hypotheses.check_i2_5(rf)[0]["supported"]
+
+
+def test_check_i2_6_compares_each_method_with_the_naive_baseline():
+    metrics = pd.DataFrame(
+        {
+            "method": ["naive", "holt", "holt_damped", "arima_110"] * 2,
+            "mae": [2.0, 3.0, 1.0, 1.5, 2.0, 3.0, 1.0, 1.5],
+        }
+    )
+    covid = {
+        "balanced_panel_generation_change_2020_pct": -0.3,
+        "balanced_panel_generation_change_2019_pct": 1.3,
+    }
+    holt, damped, arima, shock = hypotheses.check_i2_6(metrics, covid)
+    assert not holt["supported"] and damped["supported"] and arima["supported"]
+    assert shock["supported"] and shock["value"] == "-0.3% in 2020 vs +1.3% in 2019"
+
+
+def test_hypothesis_table_accepts_the_iteration_2_plan_text():
+    claims = hypotheses.check_i2_4({"median_in": 490.0, "median_out": 443.0, "p": 0.44})
+    table = hypotheses.hypothesis_table(claims, config.PLAN_HYPOTHESES_ITER2)
+    assert table.loc[0, "overall_verdict"] == "not confirmed"
+    assert table.loc[0, "plan_hypothesis"] == config.PLAN_HYPOTHESES_ITER2["I2-4"]

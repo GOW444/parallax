@@ -18,7 +18,10 @@ def gmm_scan(z: np.ndarray, k_values: range) -> pd.DataFrame:
     rows = []
     for k in k_values:
         gmm = GaussianMixture(
-            n_components=k, covariance_type="diag", n_init=5, random_state=config.SEED
+            n_components=k,
+            covariance_type="diag",
+            n_init=config.GMM_N_INIT,
+            random_state=config.SEED,
         ).fit(z)
         labels = gmm.predict(z)
         rows.append(

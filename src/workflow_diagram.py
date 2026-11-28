@@ -1,8 +1,9 @@
 """Workflow diagram in the style asked for in class: the rolled diamond, then the unrolled chain.
 
 (a) Rolled: Keim et al.'s (2008) generic diamond (Data, Visualization, Model, Knowledge),
-    two-way edges, the self-loops of the generic model and the feedback loop drawn as an
-    arrow back to Data. This is the reference model, not our application.
+    two-way edges and the feedback loop drawn as an arrow back to Data. It has no
+    self-loops (the brief asks for minimal ones). This is the reference model, not our
+    application.
 (b) Unrolled: the actual sequence of modules in our application, one oval per module,
     coloured by the diamond stage it belongs to. Each iteration runs
     Data -> Visualization -> three model lanes ([Statistics], [Unsupervised], [Supervised]),
@@ -19,15 +20,11 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.patches import Ellipse, FancyArrowPatch
 
+from src import config
+
 STAGES = ["Data", "Visualization", "Models", "Knowledge"]
-# Okabe-Ito colours, one per diamond stage (light fill, strong edge)
-STAGE_COLORS = {
-    "Data": ("#D6EAF8", "#0072B2"),
-    "Visualization": ("#FDEBD0", "#E69F00"),
-    "Models": ("#D5F5E3", "#009E73"),
-    "Knowledge": ("#F5D5E6", "#CC79A7"),
-}
-FEEDBACK_LABEL = "Feedback loop"
+STAGE_COLORS = config.STAGE_COLORS  # Okabe-Ito edge + light fill per diamond stage
+FEEDBACK_LABEL = config.FEEDBACK_LABEL
 NODE_W, NODE_H = 2.25, 1.0  # ellipse width / height in data units
 
 
@@ -96,6 +93,22 @@ def edges() -> list[tuple[str, str, str]]:
     return list(EDGES)
 
 
+# Panel (a), the generic Keim et al. diamond: stage positions and its two-way edges. Kept as
+# data so a test can assert that the rolled panel has no self-loops either.
+ROLLED_POS = {
+    "Data": (0, 0),
+    "Visualization": (2.2, 1.1),
+    "Models": (2.2, -1.1),
+    "Knowledge": (4.4, 0),
+}
+ROLLED_EDGES = [
+    ("Data", "Visualization"),
+    ("Data", "Models"),
+    ("Visualization", "Knowledge"),
+    ("Models", "Knowledge"),
+]
+
+
 # ---------------------------------------------------------------------------- drawing
 def _arrow(ax, start, end, color="#333333", lw=1.5, rad=0.0, style="-|>", **kw):
     ax.add_patch(
@@ -142,25 +155,17 @@ def _draw_node(ax, node: Node) -> None:
 
 
 def _draw_rolled(ax) -> None:
-    """Panel (a): the generic diamond with self-loops and the feedback loop back to Data."""
-    pos = {
-        "Data": (0, 0),
-        "Visualization": (2.2, 1.1),
-        "Models": (2.2, -1.1),
-        "Knowledge": (4.4, 0),
-    }
+    """Panel (a): the generic diamond and one feedback loop back to Data, with no self-loops.
+
+    The brief asks for minimal self-loops, so the generic model is drawn only with its
+    two-way stage-to-stage edges (ROLLED_EDGES) and the single feedback edge.
+    """
+    pos = ROLLED_POS
     for stage, (x, y) in pos.items():
         fill, edge = STAGE_COLORS[stage]
         ax.add_patch(Ellipse((x, y), 1.7, 0.75, facecolor=fill, edgecolor=edge, linewidth=1.8))
         ax.text(x, y, stage, ha="center", va="center", fontsize=9, fontweight="bold")
-        # self-loop of the generic model (Keim et al. allow iterating within a stage)
-        _arrow(ax, (x - 0.25, y + 0.36), (x + 0.25, y + 0.36), rad=-1.6, lw=1.0, color="#777777")
-    for a, b in [
-        ("Data", "Visualization"),
-        ("Data", "Models"),
-        ("Visualization", "Knowledge"),
-        ("Models", "Knowledge"),
-    ]:
+    for a, b in ROLLED_EDGES:
         (xa, ya), (xb, yb) = pos[a], pos[b]
         dx, dy = xb - xa, yb - ya
         n = (dx**2 + dy**2) ** 0.5
@@ -274,9 +279,9 @@ def draw() -> Figure:
     legend_ax.text(
         0.02,
         0.03,
-        "Unrolled chain: every arrow points forward; no self-loops; the only edge\n"
-        "between iterations is the Feedback loop, carrying four inferences to four\n"
-        "transformations of the data.",
+        "No node has a self-loop. In the unrolled chain every arrow points forward;\n"
+        "the only edge between iterations is the Feedback loop, carrying four\n"
+        "inferences to four transformations of the data.",
         fontsize=9.5,
         color="#333333",
         transform=legend_ax.transAxes,
