@@ -18,6 +18,8 @@ of each country's mean GDP per person over 2000–02.
 | `STEPS.md` | **The plan to execute:** 200 steps in 20 chunks; every 10th step is a review |
 | `results/review_log.md` | What every review checked, the bugs it fixed, and its open questions |
 | `PROMPT.md` | Working rules |
+| `FINISH_PLAN.md` | How the last non-report, non-video steps were planned and run (Nov 28) |
+| `HANDOFF.md` | What the team still has to do before submitting |
 
 **How the plan is executed:**
 - Execute `STEPS.md` one step at a time, in order, and tick each step when its output is
@@ -31,20 +33,21 @@ of each country's mean GDP per person over 2000–02.
   - a review-log entry.
 - After each review, stop and agree before starting the next chunk.
 
-**Progress (Nov 26):**
-- Steps 1–160 done: data preparation, iteration 1, the feedback loop and all of iteration 2.
-  Iteration 2 covers decoupling, elasticity, archetypes, producers, RF v2 with SHAP, and the
-  2019–21 forecast.
-- Phase 5 is in progress, with these deliverables:
-  - workflow diagram (`images/workflow.png`);
-  - generated report (`report/A3_report.md` → `.docx`);
-  - slides (`video/A3_slides.pptx`);
-  - video script (`video/script.md`);
-  - viva Q&A (`report/viva_qa.md`).
-- Team TODOs:
-  - fill in names and contributions (marked `TODO(team)`);
-  - record the video;
-  - export the .docx to PDF from Word and append `DAS732_A1_Report.pdf` as Appendix A.
+**Progress (Nov 28):**
+- **Analysis: complete (steps 1–160).** Data preparation, iteration 1, the feedback loop and all
+  of iteration 2: decoupling, elasticity, archetypes, producers, RF v2 with SHAP, and the
+  2019–21 forecast. Plan-conformance fixes and audits since Nov 27 are in `FINISH_PLAN.md` and
+  `results/review_log.md`:
+  - the workflow diagram has no self-loops in either panel;
+  - RF v2 now includes the plan's energy-per-GDP feature (sensitivity in
+    `results/iter2_rf_sensitivity.json`);
+  - `results/number_audit.json`, `results/figure_audit.json`,
+    `results/iter2_hypothesis_check.csv` and `results/knowledge_summary.md` are generated.
+- **Still open, owned by the team** (ordered list in `HANDOFF.md`):
+  - record the video, and fill in names and contributions (marked `TODO(team)`);
+  - regenerate the report and slides (results changed), export the report to PDF and append
+    `DAS732_A1_Report.pdf` as Appendix A;
+  - language pass and rubric check of the report, then `python -m src.package` and submit.
 
 ## Layout
 
@@ -55,7 +58,8 @@ notebooks/           A3_workflow.ipynb: orchestrates every phase (no logic insid
 src/                 config.py (every constant), prep, features, stats, models,
                      figures, plots, logbook, hypotheses; iteration 2: archetypes,
                      iter2_figures, forecast; Phase 5: workflow_diagram, report,
-                     export_docx, slides
+                     export_docx, slides; audits and delivery: number_audit,
+                     figure_audit, knowledge, package
 tests/               pytest tests for every transform, test and guard
 images/              every figure (200 dpi), registered in results/figures.csv
 results/             every number (JSON/CSV), inferences.md, review_log.md
@@ -75,7 +79,13 @@ ruff check src tests
 python -m src.report        # report/A3_report.md from results/
 python -m src.export_docx   # report/A3_report.docx
 python -m src.slides        # video/A3_slides.pptx
+python -m src.number_audit  # every number in the inferences traces to results/ (exit 1 if not)
+python -m src.figure_audit  # every figure: file, registry row, dpi, inference ID
+python -m src.package       # submission/ + submission.zip, and a list of what is still missing
 ```
+
+`FINISH_PLAN.md` documents how the last steps were run, and `HANDOFF.md` lists what the team
+still has to do.
 
 The notebook regenerates everything in `data/processed/`, `images/` and `results/` from the
 raw CSV, with `random_state=42` throughout.

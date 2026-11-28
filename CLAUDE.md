@@ -167,16 +167,17 @@ user**. Never silently deviate. Work one phase at a time and wait for the user t
 ---
 
 ## 5. Pre-submission checklist
-- [ ] Statistics, unsupervised and supervised methods are each present and labelled
-- [ ] Iteration 1 inferences → transformation table (inference → transformation) is in the report
-- [ ] The transformation is significant (unit of analysis/scale changed), with before/after visuals
-- [ ] Iteration 2 has visualizations
-- [ ] Unrolled workflow diagram has Data/Viz/Model/Knowledge colours, an edge labelled exactly "Feedback loop", and minimal self-loops
-- [ ] Each figure has a number, a caption and a "why this chart" sentence
-- [ ] The report states that no supplementary data was used, and income tiers are derived from the dataset with documented thresholds
+_Evidence for every line, and what is still open: `results/submission_checklist.md` (Nov 28)._
+- [x] Statistics, unsupervised and supervised methods are each present and labelled
+- [x] Iteration 1 inferences → transformation table (inference → transformation) is in the report
+- [x] The transformation is significant (unit of analysis/scale changed), with before/after visuals
+- [x] Iteration 2 has visualizations
+- [x] Unrolled workflow diagram has Data/Viz/Model/Knowledge colours, an edge labelled exactly "Feedback loop", and minimal self-loops
+- [x] Each figure has a number, a caption and a "why this chart" sentence
+- [x] The report states that no supplementary data was used, and income tiers are derived from the dataset with documented thresholds
 - [ ] The report refers to the A1 exploration, and the **A1 report is attached as an appendix**
 - [ ] References are complete and correct (Keim et al. 2008, OWID, Aitchison 1986, libraries)
-- [ ] `images/` folder is complete
+- [x] `images/` folder is complete
 - [ ] Video is done, uses PowerPoint slides, and gives each member a speaking part
 - [ ] Viva Q&A is prepared and every member can explain every module
 - [ ] Submitted before Nov 29, 11:59 pm IST, ideally by Nov 27

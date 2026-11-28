@@ -883,3 +883,98 @@ prefers otherwise.
 - **PDF not built:** Word automation hung on a hidden dialog. Export the PDF from Word by hand
   and append the A1 PDF.
 - **Open TODO(team):** member names and contributions (slide 17, README); record the video.
+
+
+## REVIEW #12 to #16 (retrospective, steps 111–160) and REVIEW #17 (diagram part) · Nov 28, 2026
+
+Signed off by the agent after the user asked to finish everything except the report and the
+video in one batch (this replaces the usual stop after each review). **The user has not
+reviewed these steps line by line.** The plan for the batch is `FINISH_PLAN.md`.
+
+**Checks run**
+- **Notebook:** restarted and run end to end twice (190 cells, about 8 min): no error and no
+  stderr output. A first run of the untouched notebook was compared with the committed outputs:
+  every JSON/CSV differs by at most 2e-4 relative (most by 1e-14), and `inferences.*` were
+  byte-identical. The only real nondeterminism was the SHAP beeswarm jitter (fixed below).
+- **Data audit (run as code):**
+  - archetypes: 162 countries = 152 core + 10 small states, all 10 flagged
+    `assigned_post_hoc`, no small state in the fit; smallest core cluster 17 (rule needs ≥ 5);
+    the country set equals `iter2_country_set.csv` (`in_set`);
+  - leakage: `assert_no_leakage` passes on the saved RF v2 feature list and rejects a mix share
+    and `archetype`; v2 rows (162) are a subset of the iteration 1 rows and use the same
+    saved folds; the pre-2019 table does not move when 2019–21 is scrambled (notebook 3.11);
+  - forecast: forecast years exactly 2019–2021, training series 2000–2018, split guards in
+    `forecast.split_train_test` raise otherwise; methods Holt, damped Holt, ARIMA, naive.
+- **Figure audit:** `results/figure_audit.json`: 32 of 32 figures have a file, a registry row,
+  200 dpi, a non-empty "why" and a known inference ID; no orphan PNG; every plan filename
+  exists. The 14 `iter2_*` figures were also inspected on contact sheets (title, axis units,
+  legend, source note, overlap): no problem found.
+- **Number audit:** `results/number_audit.json`: 203 numbers in the 10 inferences, 0 untraced.
+- **Plan §6 line by line (step 158):** every listed figure, statistic and inference exists with
+  the plan's name; deviations are listed below.
+
+**Bugs and gaps found, and how each was fixed**
+1. **Workflow diagram panel (a) drew a self-loop on all four stages**, against the brief
+   ("minimal self-loops") and CLAUDE.md D6. Removed; both panels are now tested.
+2. **RF v2 left out `log_energy_per_gdp_2018`**, which A3_PLAN §6.4 and change #4 require,
+   and nothing documented the omission. Added to `RF_FEATURES_HISTORY`. Sensitivity on the same
+   162 rows and folds is saved in `results/iter2_rf_sensitivity.json`: without it MAE 169.6,
+   with it 170.6 gCO2/kWh; its permutation importance is indistinguishable from zero. v2 now
+   wins 1 of 5 folds (was 2). I2-5 was regenerated; the conclusion ("history features do not
+   help") is unchanged.
+3. **GMM used `n_init = 5`** (magic number, noisy BIC; open since Review #12). Now
+   `config.GMM_N_INIT = 20`. The BIC-best k (6) and its BIC did not change; the k = 4 and
+   k = 7 rows did, and the best GMM silhouette fell from 0.085 to 0.068. It stays far below
+   K-means (0.144), so K-means k = 5 is still selected and every archetype file is unchanged.
+4. **SHAP beeswarm jitter was unseeded** (1.5% of pixels differed between identical runs).
+   Now `rng=config.SEED`.
+5. **Two inferences cited incomplete evidence** (found by the new number audit): I1-4 now
+   cites `iter1_rf_importance.csv`, I2-3 `iter2_silhouette_compare.json`.
+6. **A hard-coded `>= 4` in the I2-5 verdict** is now `config.RF_V2_MIN_FOLDS_BETTER`.
+7. **`report/workflow.png` was never written** although step 164 is ticked; the notebook now
+   writes it.
+8. **Bugs in code written during this batch, caught by tests or review before use:** the
+   packager nested directories twice; the knowledge summary counted all 205 listed countries
+   instead of the 162 in the iteration 2 set (regression test added).
+9. `ruff format` flagged `src/slides.py` (whitespace only; reformatted).
+
+**Deviations and caveats the user should know about (none changes a result)**
+- **Archetype features.** A3_PLAN §6.3 says "descriptive trajectory features + CLR mix". The
+  code uses 9 of them and leaves out the level and producer-history columns "so the archetypes
+  describe change, not size" (`config.py`). That is why none of the plan's example names
+  ("Fossil producers", "Low-energy developing") appears. It is documented in the config only,
+  not in the plan or the report: say so in the viva.
+- **Names follow one rule.** A4 is named "Coal grids" because coal has the largest CLR centroid
+  (+0.85), but wind is almost equal (+0.85) and A4 also has the largest solar+wind gain (+1.12
+  sd). The name understates wind; the figure legend and the profile heatmap show it.
+- **Archetype sizes differ between figures:** the heatmap labels the 152 fitted countries
+  (A2 n = 42), the map and series include the 10 small states (A2 n = 43).
+- **Silhouette comparison** uses the 152 core countries, not the 162 of the set, because the
+  small states are not part of the clustering.
+- **RF v2 has 162 countries, v1 165.** Three lack trajectory data; both are scored on the same
+  162 (steps 131, 134).
+- **Colours.** Source, archetype, tier and diamond-stage colours live only in `config.py`
+  (tested in `tests/test_standards.py`). About 25 neutral greys and pale fills are still inline.
+
+**Open (needs people):** REVIEW #17 report part, #18, #19, #20 and steps 170 (report), 175,
+178–180, 189, 190, 198, 200. Step 181 is ticked, but `video/slides_outline.md` is not in the
+repository: recreate it in the video pass. The report and slides were **not** regenerated, so
+they still show the old RF v2 numbers and the old diagram (commands in `HANDOFF.md`).
+
+
+## Final verification (steps 193 and 194) · Nov 28, 2026
+
+- **Strict reproducibility (193).** `data/processed/`, `images/` and `results/` were emptied in a
+  throwaway copy of the final tree (the hand-written `review_log.md` and
+  `submission_checklist.md` kept; the directories themselves kept), and the notebook was re-run
+  from the raw CSV (8m24s, no error, no stderr output). Compared with the working tree: the same
+  131 generated files exist on both sides, **126 are byte-identical**, 5 differ within
+  tolerance, **none differ**; the largest relative numeric difference is 7e-15. The SHAP
+  beeswarm and the new diagram are byte-identical, so the seeding fix works. The notebook stored
+  in the repository is that clean-run copy (its source is identical to the one edited earlier).
+- **Final checks (194).** 143 tests pass; `ruff check` and `ruff format --check` are clean;
+  `python -m src.number_audit` finds 203 numbers and 0 untraced; `python -m src.figure_audit`
+  passes for 32 of 32 figures.
+- **Still not done by design:** the report and slides were not regenerated (they predate the RF
+  v2 and diagram changes), and REVIEW #17 (report part), #18, #19 and #20 stay open. See
+  `HANDOFF.md`.

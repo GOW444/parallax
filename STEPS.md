@@ -319,7 +319,7 @@ wins any conflict.
 - [x] **117.** Stability: ARI across 20 seeds → `results/iter2_stability.json`.
 - [x] **118.** Figure `iter2_vs_iter1_silhouette.png`, using the same country set.
 - [x] **119.** Standardised centroid profiles → `results/iter2_centroids.csv`.
-- [ ] **120. REVIEW #12**
+- [x] **120. REVIEW #12**
 
 ## Chunk 13 · Phase 4c: archetype interpretation (steps 121–130) · Nov 25
 - [x] **121.** Figure `iter2_archetype_profiles.png`: diverging heatmap, features grouped.
@@ -334,7 +334,7 @@ wins any conflict.
   Figure `iter2_producers_carbon.png`.
 - [x] **128.** Log inferences **I2-3** and **I2-4**.
 - [x] **129.** Log inferences **I2-1** and **I2-2**.
-- [ ] **130. REVIEW #13**
+- [x] **130. REVIEW #13**
 
 ## Chunk 14 · Phase 4d: Random Forest v2 (steps 131–140) · Nov 25
 - [x] **131.** RF v2 table: iteration 1 features + leak-free pre-2019 history features, on
@@ -350,7 +350,7 @@ wins any conflict.
 - [x] **138.** Figure `iter2_shap_summary.png` (beeswarm).
 - [x] **139.** Change in the worst errors, v1 vs v2 → `results/iter2_rf_error_change.csv`.
   Log inference **I2-5**.
-- [ ] **140. REVIEW #14**
+- [x] **140. REVIEW #14**
 
 ## Chunk 15 · Phase 4e: forecast vs reality (steps 141–150) · Nov 25
 - [x] **141.** Re-fit the chosen clustering on the pre-2019 features (same k and method). ARI
@@ -366,20 +366,20 @@ wins any conflict.
 - [x] **148.** COVID check: the 2020 change in generation over the balanced panel, and the 2020
   residuals per group → `results/iter2_covid.json`.
 - [x] **149.** Log inference **I2-6**.
-- [ ] **150. REVIEW #15**
+- [x] **150. REVIEW #15**
 
 ## Chunk 16 · Phase 4f: iteration 2 wrap-up (steps 151–160) · Nov 25
-- [ ] **151.** Automated check that every number in inferences.json matches a `results/` value.
-- [ ] **152.** Record honestly every hypothesis the data contradicted.
-- [ ] **153.** figures.csv audit for the iteration 2 figures.
-- [ ] **154.** Visual consistency pass: archetype and tier colours fixed, fonts, labels.
-- [ ] **155.** Notebook Phase 4 narrative.
-- [ ] **156.** Clean run, fix warnings.
-- [ ] **157.** pytest + ruff.
-- [ ] **158.** Check A3_PLAN.md §6 "done when".
-- [ ] **159.** Generate `results/knowledge_summary.md`: the answer to the research question,
+- [x] **151.** Automated check that every number in inferences.json matches a `results/` value.
+- [x] **152.** Record honestly every hypothesis the data contradicted.
+- [x] **153.** figures.csv audit for the iteration 2 figures.
+- [x] **154.** Visual consistency pass: archetype and tier colours fixed, fonts, labels.
+- [x] **155.** Notebook Phase 4 narrative.
+- [x] **156.** Clean run, fix warnings.
+- [x] **157.** pytest + ruff.
+- [x] **158.** Check A3_PLAN.md §6 "done when".
+- [x] **159.** Generate `results/knowledge_summary.md`: the answer to the research question,
   with numbers.
-- [ ] **160. REVIEW #16:** Phase 4 complete, phase report given.
+- [x] **160. REVIEW #16:** Phase 4 complete, phase report given.
 
 ## Chunk 17 · Phase 5a: workflow diagram + report start (steps 161–170) · Nov 25–26
 - [x] **161.** `src/workflow_diagram.py`: the nodes (id, label, diamond stage, iteration) are
@@ -413,7 +413,7 @@ wins any conflict.
 - [ ] **180. REVIEW #18**
 
 ## Chunk 19 · Phase 5c: slides + video script (steps 181–190) · Nov 26
-- [x] **181.** Slide storyline (12–16 slides) mapped to the script sections → `video/slides_outline.md`.
+- [x] **181.** *(Nov 28: `video/slides_outline.md` is not in the repository; recreate it in the video pass.)* Slide storyline (12–16 slides) mapped to the script sections → `video/slides_outline.md`.
 - [x] **182.** `src/slides.py` (python-pptx): title, research question, workflow slides.
 - [x] **183.** Iteration 1 slides (the problems found).
 - [x] **184.** Feedback loop slides.
@@ -428,16 +428,16 @@ wins any conflict.
 
 ## Chunk 20 · Final checks (steps 191–200) · Nov 27
 - [x] **191.** `report/viva_qa.md`: answers grounded in `results/` numbers.
-- [ ] **192.** Images folder audit: every image is used in the report and every figure exists,
+- [x] **192.** Images folder audit: every image is used in the report and every figure exists,
   with names matching the plan.
-- [ ] **193.** Reproducibility: delete `data/processed`, `results` and `images`, re-run
+- [x] **193.** *(Nov 28: generated folders emptied in a throwaway copy and re-run from the raw CSV: 131 files match, 126 byte-identical, largest numeric difference 7e-15.)* Reproducibility: delete `data/processed`, `results` and `images`, re-run
   everything, and confirm the key metrics are identical.
-- [ ] **194.** Final pytest + ruff + clean notebook run.
-- [ ] **195.** `README.md`: how to run, folder map, who did what.
-- [ ] **196.** Tick off the CLAUDE.md §5 checklist, with evidence for each item.
-- [ ] **197.** Build the submission package (report docx, images/, notebook, src/, video
+- [x] **194.** *(Nov 28: 143 tests pass, `ruff check` and `ruff format --check` clean, notebook has no error or stderr output.)* Final pytest + ruff + clean notebook run.
+- [x] **195.** `README.md`: how to run, folder map, who did what.
+- [x] **196.** Tick off the CLAUDE.md §5 checklist, with evidence for each item.
+- [x] **197.** *(Nov 28: `python -m src.package` built `submission/` + zip and lists what is missing; rebuild it after the report and video are final.)* Build the submission package (report docx, images/, notebook, src/, video
   slides) → `submission/` + a zip.
 - [ ] **198.** Final typo pass over the report and slides.
-- [ ] **199.** Hand-off list for the team: record the video, check the A1 appendix, submit by
+- [x] **199.** Hand-off list for the team: record the video, check the A1 appendix, submit by
   Nov 27, everyone attends the viva.
 - [ ] **200. FINAL REVIEW #20:** the full PDF requirement check, then a summary for the user.
